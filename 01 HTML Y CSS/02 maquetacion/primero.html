@@ -7,11 +7,39 @@
         <title>Maquetación V2</title>
         <!-- 🔥🔥 HOJA DE ESTILOS -> CSS3(cascade style sheet) -->
         <style>
+            body{
+                margin: 0;
+            }
             header{
                 border: 3px solid peru;
                 /* border: 3px solid rgb(255, 255, 255); */
                 /* border: 3px solid #f340cc; */
                 text-align: center;
+                /* height: 50px; */
+            }
+            section{
+                border: 3px solid blue;
+                text-align: center;
+                display: flex;
+                /* justify-content: center; */
+                /* justify-content: space-between; */
+                /* justify-content: space-around; */
+                justify-content: space-evenly;
+            }
+            article{
+                border: 3px solid rgb(100,156,0);
+                height: 100px;
+                /* width: 300px; */
+                /* FLOAT | INLINE */
+            }
+            aside{
+                border: 3px solid #fdbb23;
+                height: 100px;
+            }
+            footer{
+                border: 3px solid lightslategray;
+                text-align: center;
+                height: 50px;
             }
         </style>
     </head>
@@ -22,13 +50,15 @@
             ESTO ES UN ENCABEZADO
         </header>
         <section>
-            ESTO ES UN SECTION
             <article>
                 ESTE ES UN ARTICLE
+                <div></div>
+                <div></div>
             </article>
             <aside>
                 ESTE ES UN ASIDE
             </aside>
+            
         </section>
         <footer>
             ESTE ES UN FOOTER

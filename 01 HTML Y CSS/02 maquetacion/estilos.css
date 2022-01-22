@@ -1,0 +1,49 @@
+body{
+    /* background-color: peru; */
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+}
+header{
+    border: 3px solid green;
+    height: 50px;
+    color: green;
+}
+
+section{
+    border: 3px solid black;
+    display: flex;
+    justify-content: space-evenly;
+    height: 200px;
+    align-items: center;
+}
+
+/* section article{
+    background-color: lightblue;
+    border: 3px solid #f1c40f;
+}
+section article a{
+    background-color: #9b59b6;
+} */
+/* CLASE */
+.articulo1{
+    border: 3px solid #1abc9c;
+    height: 50px;
+    color: #16a085;
+}
+/* ID */
+#articulo2{
+    border: 3px solid #e67e22;
+    height: 70px;
+    color: #d35400;
+}
+aside{
+    border: 3px solid #9b59b6;
+    color: #8e44ad;
+    height: 100px;
+}
+footer{
+    border: 3px solid #95a5a6;
+    color: #7f8c8d;
+    height: 50px;
+}
