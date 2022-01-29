@@ -72,6 +72,15 @@ header ul li:last-child a{
     /* border-radius: 5px 5px 5px 5px; */
     border-radius: 5px;
 }
+.btnMenu{
+    border: 1px solid white;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: none;
+}
+
 
 /* HEADING PRINCIPAL */
 .principal{
@@ -118,9 +127,13 @@ form button{
 }
 
 /* PUBLICACIONES */
+.publicaciones{
+    padding: 40px 0;
+}
 .box{
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 /* 
     32%
@@ -138,10 +151,68 @@ form button{
     60px
 */
 .item{
-    /* width: 32%; */
+    /* width: 30%; */
     width: calc(100%/3 - 20px);
+    margin-bottom: 30px;
 }
 .item img{
     display: block;
     width: 100%;
+}
+.item div div{
+    display: flex;
+    justify-content: space-between;
+}
+
+/* FOOTER */
+footer{
+    text-align: center;
+    padding: 20px 0 50px 0;
+    font-size: 20px;
+}
+footer span{
+    color: rgba(0,0,0,.5);
+    margin-right: 10px;
+}
+
+footer a{
+    text-decoration: none;
+    color: #4d4d4d;
+    border: 1px solid #cccccc;
+    background-color: #eaeaea;
+    padding: 5px 10px;
+    /* margin-right: 10px; */
+}
+
+footer a:not(:last-child){
+    margin-right: 10px;
+}
+
+footer a.activo{
+    background-color: transparent;
+    border: none;
+    cursor: default;
+}
+
+/* ⚡RESPONSIVE DESIGN⚡ */
+/* EL MODELO ESCRITORIO A DISPOSITIVOS MOVILES */
+@media only screen and (max-width: 900px){
+    .btnMenu{
+        display: block;
+    }
+    header ul{
+        display: none;
+    }
+
+    .data{
+        left: 0;
+        bottom: 0;
+        /* width: 100%; */
+        right: 0;
+    }
+
+    .item{
+        /* calc(100% / 3 - 20px) */
+        width: calc(50% - 15px);
+    }
 }
