@@ -3,7 +3,7 @@ body{
     font-family: 'Lato', sans-serif;
 }
 
-/* CONSTANTES */
+/* CONSTANTES ⚡dont repeat yourself⚡ */
 .contenedor{
     /* 3258px */
     /* 2200px */
@@ -73,8 +73,8 @@ header ul li:last-child a{
     border-radius: 5px;
 }
 
-/* SECTION */
-section{
+/* HEADING PRINCIPAL */
+.principal{
     background-color: #ddd;
 }
 
@@ -92,7 +92,7 @@ form button{
     border-radius: 3px;
 }
 
-section div article img{
+.principal div article img{
     /* border: 1px solid red; */
     display: block;
     width: 100%;
@@ -115,4 +115,33 @@ section div article img{
 .data div{
     display: flex;
     justify-content: space-between;
+}
+
+/* PUBLICACIONES */
+.box{
+    display: flex;
+    justify-content: space-between;
+}
+/* 
+    32%
+    32%
+    32%
+    ----
+    96%
+    4% - 100px, 121.1px? porque depende de cada viewport
+    ---------------------------------
+    calc(100% / 3 - 20px)
+    33.33% - 20px
+    33%.33% - 20px
+    33%.33% - 20px
+    ---------------
+    60px
+*/
+.item{
+    /* width: 32%; */
+    width: calc(100%/3 - 20px);
+}
+.item img{
+    display: block;
+    width: 100%;
 }
