@@ -216,3 +216,22 @@ footer a.activo{
         width: calc(50% - 15px);
     }
 }
+@media only screen and (max-width: 700px){
+    .data{
+        position: unset;
+        border: 1px solid rgba(0,0,0, .1);
+    }
+
+    footer span,
+    footer a{
+        margin-bottom: 10px;
+        display: inline-block;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    .item{
+        width: 100%;
+        box-shadow: 5px 5px 30px rgba(0,0,0,.3);
+    }
+}
