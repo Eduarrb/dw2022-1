@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/* ⚡ TAMAÑO DE FUENTE POR DEFECTO ⚡ */
+/*
+    16px -> 10px -> 1rem 
+    1.6rem
+    16px -> 100%
+    10px -> 62.5%
+*/
+
+html{
+    font-size: 62.5%; // 10px -> 1rem
+}
+
+a,
+a:link,
+a:visited{
+    text-decoration: none;
+}
+
+ul{
+    list-style: none;
+}
