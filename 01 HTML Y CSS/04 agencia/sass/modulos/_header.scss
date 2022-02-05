@@ -5,6 +5,7 @@
     height: 100vh;
     // & = .header
     &__nav{
+        padding: 2.5rem 0;
         // & = .header__nav
         &__contenedor{
             // background-color: peru;
@@ -30,9 +31,35 @@
                         text-transform: uppercase;
                         display: inline-block;
                         padding: 1rem 1.5rem;
+                        transition: all .5s;
+                        // a:hover
+                        // &:hover{
+                        //     color: #fec503;
+                        // }
+                    }
+                    &--link:hover{
+                        color: #fec503;
+                        transition: all .5s;
                     }
                 }
             }
+        }
+    }
+    &__bienvenida{
+        &--subtitulo{
+            font-family: $font-merri;
+            font-size: 3.5rem;
+            color: white;
+            font-style: italic;
+            text-align: center;
+        }
+        &--titulo{
+            color: white;
+            font-family: $font-mont;
+            font-size: 7.5rem;
+            text-align: center;
+            text-transform: uppercase;
+            font-weight: 700;
         }
     }
 }
