@@ -46,24 +46,23 @@
         }
     }
     &__bienvenida{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: calc(100% - 9rem);
         &--subtitulo{
             font-family: $font-merri;
             font-size: 3.5rem;
             color: white;
             font-style: italic;
-            text-align: center;
         }
         &--titulo{
             color: white;
             font-family: $font-mont;
             font-size: 7.5rem;
-            text-align: center;
             text-transform: uppercase;
             font-weight: 700;
         }
     }
 }
-
-// .header__nav{
-//     background-color: peru;
-// }
