@@ -50,20 +50,22 @@ $font-roboto: 'Roboto Slab', serif;
 .titulo-n3{
     font-family: $font-mont;
     font-size: 2.4rem;
-    text-align: center;
+    // text-align: center;
 }
 .resumen-n3{
     font-family: $font-roboto;
     font-size: 1.6rem;
     color: #6c757d;
-    text-align: center;
+    // text-align: center;
     line-height: 2.8rem;
 }
 
 .text-italic{
     font-style: italic;
 }
-
+.text-center{
+    text-align: center;
+}
 
 .mb-1{
     margin-bottom: 1rem;
