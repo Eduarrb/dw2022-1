@@ -69,6 +69,19 @@ font-family: 'Roboto Slab', serif;
   font-style: italic;
 }
 
+.titulo-n3 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 2.4rem;
+  text-align: center;
+}
+
+.resumen-n3 {
+  font-family: "Roboto Slab", serif;
+  font-size: 1.6rem;
+  color: #6c757d;
+  text-align: center;
+}
+
 .mb-1 {
   margin-bottom: 1rem;
 }
@@ -283,6 +296,28 @@ font-family: 'Roboto Slab', serif;
   font-size: 7.5rem;
   text-transform: uppercase;
   font-weight: 700;
+}
+
+.servicios__contenedor__caja {
+  display: flex;
+  justify-content: space-between;
+}
+.servicios__contenedor__caja__item {
+  width: calc(33.3333333333% - 2rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.servicios__contenedor__caja__item--logo {
+  width: 12.8rem;
+  height: 12.8rem;
+  background-color: #fed136;
+  color: white;
+  font-size: 6.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
 }
 
 /*# sourceMappingURL=estilos.css.map */

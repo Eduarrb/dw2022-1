@@ -47,6 +47,18 @@ $font-roboto: 'Roboto Slab', serif;
     font-style: italic;
 }
 
+.titulo-n3{
+    font-family: $font-mont;
+    font-size: 2.4rem;
+    text-align: center;
+}
+.resumen-n3{
+    font-family: $font-roboto;
+    font-size: 1.6rem;
+    color: #6c757d;
+    text-align: center;
+}
+
 .mb-1{
     margin-bottom: 1rem;
 }
