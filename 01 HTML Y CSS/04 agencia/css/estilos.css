@@ -80,6 +80,11 @@ font-family: 'Roboto Slab', serif;
   font-size: 1.6rem;
   color: #6c757d;
   text-align: center;
+  line-height: 2.8rem;
+}
+
+.text-italic {
+  font-style: italic;
 }
 
 .mb-1 {
@@ -318,6 +323,51 @@ font-family: 'Roboto Slab', serif;
   justify-content: center;
   align-items: center;
   border-radius: 50%;
+}
+
+.portafolio {
+  background-color: #eeeeee;
+}
+.portafolio__contenedor__caja {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.portafolio__contenedor__caja__item {
+  width: calc(33.3333333333% - 2rem);
+  margin-bottom: 3rem;
+}
+.portafolio__contenedor__caja__item__imgBox {
+  position: relative;
+  cursor: pointer;
+}
+.portafolio__contenedor__caja__item__imgBox img {
+  width: 100%;
+  display: block;
+}
+.portafolio__contenedor__caja__item__imgBox div {
+  position: absolute;
+  top: 0;
+  background-color: rgba(254, 209, 54, 0.9);
+  width: 100%;
+  height: 100%;
+  color: white;
+  font-size: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+.portafolio__contenedor__caja__item__imgBox:hover div {
+  opacity: 1;
+  visibility: visible;
+  transition: all 0.3s;
+}
+.portafolio__contenedor__caja__item__data {
+  background-color: white;
+  padding: 2rem 0;
 }
 
 /*# sourceMappingURL=estilos.css.map */
