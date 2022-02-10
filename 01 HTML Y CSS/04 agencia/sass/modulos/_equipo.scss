@@ -1,0 +1,53 @@
+.equipo{
+    background-color: #f8f9fa;
+    &__contenedor{
+        &__caja{
+            display: flex;
+            justify-content: space-around;
+            &__item{
+                &__imgBox{
+                    width: 22.5rem;
+                    height: 22.5rem;
+                    border: 6px solid #dbdddf;
+                    border-radius: 50%;
+                    margin-bottom: 2rem;
+                    img{
+                        width: 100%;
+                        display: block;
+                        border-radius: 50%;
+                    }
+                }
+                &__redes{
+                    text-align: center;
+                    margin-top: 1rem;
+                    a{
+                        display: inline-block;
+                        &:not(:last-child){
+                            margin-right: 2rem;
+                        }
+                        i{
+                            font-size: 1.5rem;
+                            width: 4rem;
+                            height: 4rem;
+                            background-color: black;
+                            color: white;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            border-radius: 50%;
+                        }
+                    }
+                }
+            }
+        }
+        &--descri{
+            font-family: $font-merri;
+            font-size: 1.5rem;
+            // text-align: center;
+            color: #6c757d;
+            padding: 0 15%;
+            // margin-top: 5rem;
+            line-height: 2.8rem;
+        }
+    }
+}

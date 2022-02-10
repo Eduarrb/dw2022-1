@@ -1,0 +1,9 @@
+.sponsors{
+    &__contenedor{
+        display: flex;
+        justify-content: space-around;
+        a{
+            display: inline-block;
+        }
+    }
+}

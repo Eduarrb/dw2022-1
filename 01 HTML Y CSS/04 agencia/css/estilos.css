@@ -425,5 +425,68 @@ font-family: 'Roboto Slab', serif;
   justify-content: center;
   align-items: center;
 }
+.about__contenedor__timeline .lastItem div p {
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.equipo {
+  background-color: #f8f9fa;
+}
+.equipo__contenedor__caja {
+  display: flex;
+  justify-content: space-around;
+}
+.equipo__contenedor__caja__item__imgBox {
+  width: 22.5rem;
+  height: 22.5rem;
+  border: 6px solid #dbdddf;
+  border-radius: 50%;
+  margin-bottom: 2rem;
+}
+.equipo__contenedor__caja__item__imgBox img {
+  width: 100%;
+  display: block;
+  border-radius: 50%;
+}
+.equipo__contenedor__caja__item__redes {
+  text-align: center;
+  margin-top: 1rem;
+}
+.equipo__contenedor__caja__item__redes a {
+  display: inline-block;
+}
+.equipo__contenedor__caja__item__redes a:not(:last-child) {
+  margin-right: 2rem;
+}
+.equipo__contenedor__caja__item__redes a i {
+  font-size: 1.5rem;
+  width: 4rem;
+  height: 4rem;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+}
+.equipo__contenedor--descri {
+  font-family: "Merriweather", serif;
+  font-size: 1.5rem;
+  color: #6c757d;
+  padding: 0 15%;
+  line-height: 2.8rem;
+}
+
+.sponsors__contenedor {
+  display: flex;
+  justify-content: space-around;
+}
+.sponsors__contenedor a {
+  display: inline-block;
+}
 
 /*# sourceMappingURL=estilos.css.map */
