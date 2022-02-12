@@ -6,6 +6,8 @@
     // & = .header
     &__nav{
         padding: 2.5rem 0;
+        position: fixed;
+        width: 100%;
         // & = .header__nav
         &__contenedor{
             // background-color: peru;

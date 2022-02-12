@@ -1,0 +1,35 @@
+.contacto{
+    background-color: #212529;
+    background-image: url(../img/map-image.png);
+    background-size: cover;
+    background-position: center;
+    &__contenedor{
+        &__form{
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            &__col{
+                width: calc(50% - 1.5rem);
+                &--formGroup{
+                    &:not(:last-child){
+                        margin-bottom: 2rem;
+                    }
+                    input,
+                    textarea{
+                        width: 100%;
+                        font-size: 1.6rem;
+                        padding: 2rem;
+                        box-sizing: border-box;
+                        font-family: $font-roboto;
+                        border-radius: .5rem;
+                        border: none;
+                        outline: 0;
+                    }
+                }
+            }
+            &--btnBox{
+                width: 100%;
+            }
+        }
+    }
+}

@@ -47,11 +47,18 @@ font-family: 'Roboto Slab', serif;
   text-transform: uppercase;
   border-radius: 0.5rem;
   display: inline-block;
+  border: none;
+  cursor: pointer;
 }
 
 .btn-amarillo {
   color: white;
   background-color: #fed136;
+  transition: all 0.3s;
+}
+.btn-amarillo:hover {
+  background-color: #fdc302;
+  transition: all 0.3s;
 }
 
 .titulo-n2 {
@@ -87,6 +94,14 @@ font-family: 'Roboto Slab', serif;
 
 .text-center {
   text-align: center;
+}
+
+.text-white {
+  color: white;
+}
+
+.height-100 {
+  height: 100%;
 }
 
 .mb-1 {
@@ -257,6 +272,8 @@ font-family: 'Roboto Slab', serif;
 }
 .header__nav {
   padding: 2.5rem 0;
+  position: fixed;
+  width: 100%;
 }
 .header__nav__contenedor {
   display: flex;
@@ -487,6 +504,38 @@ font-family: 'Roboto Slab', serif;
 }
 .sponsors__contenedor a {
   display: inline-block;
+}
+
+.contacto {
+  background-color: #212529;
+  background-image: url(../img/map-image.png);
+  background-size: cover;
+  background-position: center;
+}
+.contacto__contenedor__form {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.contacto__contenedor__form__col {
+  width: calc(50% - 1.5rem);
+}
+.contacto__contenedor__form__col--formGroup:not(:last-child) {
+  margin-bottom: 2rem;
+}
+.contacto__contenedor__form__col--formGroup input,
+.contacto__contenedor__form__col--formGroup textarea {
+  width: 100%;
+  font-size: 1.6rem;
+  padding: 2rem;
+  box-sizing: border-box;
+  font-family: "Roboto Slab", serif;
+  border-radius: 0.5rem;
+  border: none;
+  outline: 0;
+}
+.contacto__contenedor__form--btnBox {
+  width: 100%;
 }
 
 /*# sourceMappingURL=estilos.css.map */

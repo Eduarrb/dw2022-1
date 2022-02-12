@@ -26,10 +26,17 @@ $font-roboto: 'Roboto Slab', serif;
     text-transform: uppercase;
     border-radius: .5rem;
     display: inline-block;
+    border: none;
+    cursor: pointer;
 }
 .btn-amarillo{
     color: white;
     background-color: #fed136;
+    transition: all .3s;
+    &:hover{
+        background-color: #fdc302;
+        transition: all .3s;
+    }
 }
 
 .titulo-n2{
@@ -67,7 +74,12 @@ $font-roboto: 'Roboto Slab', serif;
 .text-center{
     text-align: center;
 }
-
+.text-white{
+    color: white;
+}
+.height-100{
+    height: 100%;
+}
 .mb-1{
     margin-bottom: 1rem;
 }
