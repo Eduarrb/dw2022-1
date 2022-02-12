@@ -8,6 +8,8 @@
         padding: 2.5rem 0;
         position: fixed;
         width: 100%;
+        transition: all .3s;
+        z-index: 1;
         // & = .header__nav
         &__contenedor{
             // background-color: peru;
@@ -22,6 +24,7 @@
                 color: #fec503;
                 font-family: $font-kaushan;
                 font-size: 2.8rem;
+                transition: all .3s;
             }
             &__menu{
                 display: flex;
@@ -44,6 +47,16 @@
                         transition: all .5s;
                     }
                 }
+            }
+        }
+        // .header__nav.active
+        &.active{
+            background-color: #212529;
+            padding: 1rem 0;
+            transition: all .3s;
+            & .header__nav__contenedor--logo{
+                font-size: 2rem;
+                transition: all .3s;
             }
         }
     }
