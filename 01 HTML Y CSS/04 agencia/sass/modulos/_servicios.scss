@@ -3,11 +3,18 @@
         &__caja{
             display: flex;
             justify-content: space-between;
+            flex-wrap: wrap;
             &__item{
                 width: calc(100% / 3 - 2rem);
                 display: flex;
                 flex-direction: column;
                 align-items: center;
+                @media only screen and (max-width: $bp-medium){
+                    width: 100%;
+                    &:not(:last-child){
+                        margin-bottom: 5rem;
+                    }
+                }
                 &--logo{
                     width: 12.8rem;
                     height: 12.8rem;

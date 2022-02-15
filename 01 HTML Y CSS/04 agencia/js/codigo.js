@@ -8,6 +8,8 @@
 // }
 
 const nav = document.querySelector('.header__nav');
+const menu = document.querySelector('.header__nav__contenedor__menu');
+const btn = document.querySelector('.header__nav__contenedor--btn');
 // console.log(nav);
 
 window.addEventListener('scroll', function(){
@@ -20,10 +22,9 @@ window.addEventListener('scroll', function(){
         // console.log('no es mayor a 0 o es igual a 0');
         nav.classList.remove('active');
     }
-<<<<<<< HEAD
 })
 
-// nav.style.background = 'peru';
-=======
+btn.addEventListener('click', function(){
+    // console.log('hiciste click');
+    menu.classList.toggle('mostrarMenu');
 })
->>>>>>> 04a038c70220ac7b4dd2d17925c5806843c8ccd6

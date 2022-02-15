@@ -20,6 +20,10 @@ $font-roboto: 'Roboto Slab', serif;
     @media only screen and (max-width: $bp-large){
         max-width: 72rem;
     }
+    @media only screen and (max-width: $bp-medium){
+        max-width: 54rem;
+    }
+
 }
 .btn{
     font-family: $font-mont;
