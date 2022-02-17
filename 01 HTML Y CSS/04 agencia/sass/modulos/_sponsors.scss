@@ -2,7 +2,21 @@
     &__contenedor{
         display: flex;
         justify-content: space-around;
+        @media only screen and (max-width: $bp-medium){
+            flex-wrap: wrap;
+        }
         a{
+            @media only screen and (max-width: $bp-medium){
+                // los dos primeros elementos
+                &:nth-child(-n+2){
+                    margin-bottom: 2rem;
+                }
+            }
+            @media only screen and (max-width: $bp-small){
+                &:not(:last-child){
+                    margin-bottom: 2rem;
+                }
+            }
             display: inline-block;
             img{
                 width: 100%;

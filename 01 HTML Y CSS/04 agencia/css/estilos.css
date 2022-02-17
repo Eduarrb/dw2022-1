@@ -15,6 +15,11 @@
 html {
   font-size: 62.5%;
 }
+@media only screen and (max-width: 36em) {
+  html {
+    font-size: 50%;
+  }
+}
 
 a,
 a:link,
@@ -47,6 +52,11 @@ font-family: 'Roboto Slab', serif;
 @media only screen and (max-width: 48em) {
   .contenedor {
     max-width: 54rem;
+  }
+}
+@media only screen and (max-width: 36em) {
+  .contenedor {
+    padding: 0 2rem;
   }
 }
 
@@ -398,12 +408,22 @@ font-family: 'Roboto Slab', serif;
   color: white;
   font-style: italic;
 }
+@media only screen and (max-width: 48em) {
+  .header__bienvenida--subtitulo {
+    font-size: 2rem;
+  }
+}
 .header__bienvenida--titulo {
   color: white;
   font-family: "Montserrat", sans-serif;
   font-size: 7.5rem;
   text-transform: uppercase;
   font-weight: 700;
+}
+@media only screen and (max-width: 48em) {
+  .header__bienvenida--titulo {
+    font-size: 6rem;
+  }
 }
 
 .servicios__contenedor__caja {
@@ -452,6 +472,11 @@ font-family: 'Roboto Slab', serif;
 @media only screen and (max-width: 62em) {
   .portafolio__contenedor__caja__item {
     width: calc(50% - 1.5rem);
+  }
+}
+@media only screen and (max-width: 36em) {
+  .portafolio__contenedor__caja__item {
+    width: 100%;
   }
 }
 .portafolio__contenedor__caja__item__imgBox {
@@ -672,8 +697,23 @@ font-family: 'Roboto Slab', serif;
   display: flex;
   justify-content: space-around;
 }
+@media only screen and (max-width: 48em) {
+  .sponsors__contenedor {
+    flex-wrap: wrap;
+  }
+}
 .sponsors__contenedor a {
   display: inline-block;
+}
+@media only screen and (max-width: 48em) {
+  .sponsors__contenedor a:nth-child(-n+2) {
+    margin-bottom: 2rem;
+  }
+}
+@media only screen and (max-width: 36em) {
+  .sponsors__contenedor a:not(:last-child) {
+    margin-bottom: 2rem;
+  }
 }
 .sponsors__contenedor a img {
   width: 100%;
@@ -693,6 +733,14 @@ font-family: 'Roboto Slab', serif;
 }
 .contacto__contenedor__form__col {
   width: calc(50% - 1.5rem);
+}
+@media only screen and (max-width: 48em) {
+  .contacto__contenedor__form__col {
+    width: 100%;
+  }
+  .contacto__contenedor__form__col:first-child {
+    margin-bottom: 2rem;
+  }
 }
 .contacto__contenedor__form__col--formGroup:not(:last-child) {
   margin-bottom: 2rem;
