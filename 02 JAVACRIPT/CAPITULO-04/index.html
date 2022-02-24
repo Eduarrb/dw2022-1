@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+</head>
+<body>
+    <!-- SECCION TOP -->
+    <div class="intro py-3 bg-white text-center">
+        <div class="container">
+            <h2 class="text-primary display-3 my-4">Quiz Ninja </h2>
+        </div>
+    </div>
+
+    <!-- MOSTRAR EL PUNTAJE -->
+    <div class="result py-4 d-none bg-light text-center">
+        <div class="container lead">
+            <p>Eres <span class="text-primary display-4 p-3">0%</span> Ninja</p>
+        </div>
+    </div>
+
+    <!-- SECCION DE LAS PREGUNTAS -->
+    <div class="quiz py-4 bg-primary">
+        <div class="container">
+            <h2 class="my-5 text-white">Ahora las preguntas</h2>
+            <form action="" class="quiz-form text-light">
+                <div class="my-5">
+                    <p class="lead font-weight-normal">1. ¿Como das indicaciones Ninja?</p>
+                    <div class="form-check my-2 text-white-50">
+                        <input type="radio" name="q1" value="A" checked id="q1a">
+                        <label for="q1a" class="form-check-label">Mostrales un mapa</label>
+                    </div>
+                    <div class="form-check my-2 text-white-50">
+                        <input type="radio" name="q1"   value="B" id="q1b">
+                        <label for="q1b" class="form-check-label">No te preocupes, un ninja encuentra el camino</label>
+                    </div>
+                </div>
+                <div class="my-5">
+                    <p class="lead font-weight-normal">2. Si un ninja tiene 3 manzanas, entonces da uno a Mario & uno a Yoshi, ¿Cuantas manzanas le quedan?</p>
+                    <div class="form-check my-2 text-white-50">
+                        <input type="radio" name="q2" value="A" checked id="q2a">
+                        <label for="q2a" class="form-check-label">Un manazana</label>
+                    </div>
+                    <div class="form-check my-2 text-white-50">
+                        <input type="radio" name="q2" value="B" id="q2b">
+                        <label for="q2b" class="form-check-label">3 manzanas, y dos cadaveres</label>
+                    </div>
+                </div>
+                <div class="my-5">
+                    <p class="lead font-weight-normal">3. ¿Como sabes que encontraste a un Ninja?</p>
+                    <div class="form-check my-2 text-white-50">
+                        <input type="radio" name="q3" value="A" checked id="q3a">
+                        <label for="q3a" class="form-check-label">Reconoceras el atuendo</label>
+                    </div>
+                    <div class="form-check my-2 text-white-50">
+                        <input type="radio" name="q3" value="B" id="q3b">
+                        <label for="q3b" class="form-check-label">La misma muerte te lo dira</label>
+                    </div>
+                </div>
+                <div class="my-5">
+                    <p class="lead font-weight-normal">4. Cual es el METDO ARRAY favorito de un ninja</p>
+                    <div class="form-check my-2 text-white-50">
+                        <input type="radio" name="q4" value="A" checked id="q4a">
+                        <label for="q4a" class="form-check-label">forEach()</label>
+                    </div>
+                    <div class="form-check my-2 text-white-50">
+                        <input type="radio" name="q4" value="B" id="q4b">
+                        <label for="q4b" class="form-check-label">Slice()</label>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <input type="submit" class="btn btn-light">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div style="height: 100px;"></div>
+    <script src="js/codigo.js"></script>
+</body>
+</html>

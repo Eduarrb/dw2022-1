@@ -39,6 +39,7 @@ button{
     position: relative;
     padding: 40px 20px;
     border-radius: 5px;
+    width: 40%;
 }
 .popup img{
     display: block;
