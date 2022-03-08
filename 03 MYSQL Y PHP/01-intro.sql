@@ -159,3 +159,31 @@ SELECT
     CONCAT(act_nombres, ' ', act_apellidos) AS actor,
     LOWER(CONCAT(SUBSTRING(act_nombres, 1, 1), act_apellidos, "@continental.edu.pe")) AS correo
         FROM actores ORDER BY act_apellidos
+
+-- ⚡⚡ GROUP BY
+SELECT COUNT(*) AS cantidad, peli_genero FROM peliculas GROUP BY peli_genero
+
+-- QUE TE MUESTRE LA CANTIDAD DE LAS PELICULAS DE CIENCIA FICCION
+-- CANTIDAD, NOMBRE DE GENERO
+SELECT COUNT(peli_genero) AS cantidad, peli_genero FROM peliculas WHERE peli_genero = 'ciencia ficcion' GROUP BY peli_genero
+
+-- QUE TE MUESTRE LA CANTIDAD DE LAS PELICULAS QUE TENGAN LA RESTRICCION PG-13
+SELECT 
+    COUNT(peli_restricciones) AS canti, 
+    peli_restricciones 
+        FROM peliculas 
+            WHERE peli_restricciones = 'pg-13'
+            GROUP BY peli_restricciones
+
+-- ⚡⚡ COMODINES
+SELECT * FROM peliculas WHERE peli_nombre LIKE 'a%'
+
+SELECT * FROM peliculas WHERE peli_nombre LIKE "a%"
+
+SELECT * FROM peliculas WHERE peli_nombre LIKE '%r'
+
+SELECT * FROM peliculas WHERE peli_nombre LIKE '%ma%'
+
+
+
+
