@@ -1,3 +1,7 @@
+<?php 
+    include "conexion.php";
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,6 +12,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css">
 </head>
 <body>
+<!-- 
+    C -> CREATE
+    R -> READ
+    U -> UPDATE
+    D -> DELETE
+ -->
+
     <h1 class="text-center pt-5 pb-5 bg-primary text-white">Bienvenidos a Pelicomic</h1>
     <section class="container">
         <div class="row p-4">
@@ -15,6 +26,16 @@
             <a href="#" class="btn btn-info ml-2">Directores</a>
         </div>
         <div class="row">
+            <?php
+                $query = "SELECT a.peli_nombre, a.peli_estreno, CONCAT(b.dire_nombres, ' ', b.dire_apellidos) AS director, a.peli_restricciones FROM peliculas a INNER JOIN directores b ON a.peli_dire_id = b.dire_id";
+
+                $query_resultado = mysqli_query($conexion, $query);
+
+                // echo $query_resultado;
+                print_r($query_resultado);
+                
+            ?>
+            <!-- PLANTILLA -->
             <div class="col-md-3 mb-4">
                 <img 
                     src="https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/D4IRKEAH7NDKPOMYJ5DMYVMLGA.jpg" 
@@ -36,6 +57,7 @@
                     <a href="#" class="btn btn-small btn-danger">borrar</a>
                 </div>
             </div>
+            <!-- CIERRE DE PLANTILLA -->
         </div>
     </section>
 </body>
