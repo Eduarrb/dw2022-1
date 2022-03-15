@@ -27,7 +27,7 @@
         </div>
         <div class="row">
             <?php
-                $query = "SELECT a.peli_nombre, a.peli_estreno, CONCAT(b.dire_nombres, ' ', b.dire_apellidos) AS director, a.peli_restricciones, a.peli_img FROM peliculas a INNER JOIN directores b ON a.peli_dire_id = b.dire_id";
+                $query = "SELECT a.peli_id, a.peli_nombre, a.peli_estreno, CONCAT(b.dire_nombres, ' ', b.dire_apellidos) AS director, a.peli_restricciones, a.peli_img FROM peliculas a INNER JOIN directores b ON a.peli_dire_id = b.dire_id";
 
                 $query_resultado = mysqli_query($conexion, $query);
 
@@ -69,7 +69,7 @@
                                 <strong>Rating: </strong> <?php echo $fila['peli_restricciones']; ?>
                             </div>
                             <div class="mt-2">
-                                <a href="#" class="btn btn-small btn-warning">editar</a>
+                                <a href="update.php?id=<?php echo $fila['peli_id']; ?>" class="btn btn-small btn-warning">editar</a>
                                 <a href="#" class="btn btn-small btn-danger">borrar</a>
                             </div>
                         </div>
