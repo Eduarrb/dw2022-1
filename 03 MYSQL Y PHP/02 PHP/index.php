@@ -27,7 +27,7 @@
         </div>
         <div class="row">
             <?php
-                $query = "SELECT a.peli_nombre, a.peli_estreno, CONCAT(b.dire_nombres, ' ', b.dire_apellidos) AS director, a.peli_restricciones FROM peliculas a INNER JOIN directores b ON a.peli_dire_id = b.dire_id";
+                $query = "SELECT a.peli_nombre, a.peli_estreno, CONCAT(b.dire_nombres, ' ', b.dire_apellidos) AS director, a.peli_restricciones, a.peli_img FROM peliculas a INNER JOIN directores b ON a.peli_dire_id = b.dire_id";
 
                 $query_resultado = mysqli_query($conexion, $query);
 
@@ -52,7 +52,7 @@
                     ?>
                         <div class="col-md-3 mb-4">
                             <img 
-                                src="https://cloudfront-us-east-1.images.arcpublishing.com/elcomercio/D4IRKEAH7NDKPOMYJ5DMYVMLGA.jpg" 
+                                src="<?php echo $fila['peli_img']; ?>" 
                                 alt="" 
                                 style="width: 100%; display: block;"
                             >

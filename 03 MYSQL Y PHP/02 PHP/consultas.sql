@@ -6,3 +6,4 @@ SELECT
     FROM peliculas a
         INNER JOIN directores b ON a.peli_dire_id = b.dire_id
         
+ALTER TABLE peliculas ADD COLUMN peli_img TEXT

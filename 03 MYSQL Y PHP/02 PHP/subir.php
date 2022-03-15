@@ -1,5 +1,6 @@
 <?php 
     include "conexion.php";
+    ob_start();
 ?>
 
 <!DOCTYPE html>
@@ -21,10 +22,14 @@
             <h4 class="text-center col-12">
                 Ingresa los datos de la pelicula
             </h4>
-            <form action="" class="col-md-6 mt-3 pb-5">
+            <!-- 
+                POST -> ENVIAR
+                GET  -> OBTENER
+             -->
+            <form action="" method="post" class="col-md-6 mt-3 pb-5">
                 <div class="form-group">
                     <label for="peli_nombre">Nombre de peliculas</label>
-                    <input type="text" class="form-control" id="peli_nombre" name="peli_nombre">
+                    <input type="text" class="form-control" id="peli_nombre" name="peli_nombre" required>
                 </div>
                 <div class="form-group">
                     <label for="peli_genero">Género</label>
@@ -45,9 +50,18 @@
                 <div class="form-group">
                     <label for="peli_dire_id">Director</label>
                     <select name="peli_dire_id" id="peli_dire_id" class="form-control">
-                        <option value="1">Jon Wants</option>
-                        <option value="2">Steven Spilber</option>
-                        <option value="5">Lana Wachosky</option>
+                        <?php
+                            $query = "SELECT dire_id, CONCAT(dire_nombres, ' ', dire_apellidos) AS director FROM directores";
+                            $query_resultado = mysqli_query($conexion, $query);
+
+                            while($fila = mysqli_fetch_array($query_resultado)){
+                                // print_r($fila);
+                                ?>
+                                <option value="<?php echo $fila['dire_id']; ?>"><?php echo $fila['director']; ?></option>
+                            <?php }
+                        ?>
+                        <!-- <option value="2">Steven Spilber</option>
+                        <option value="5">Lana Wachosky</option> -->
                     </select>
                 </div>
                 <div class="form-group text-center">
@@ -58,3 +72,22 @@
     </section>
 </body>
 </html>
+<?php
+    if(isset($_POST['guardar'])){
+        // echo 'funciona';
+        // echo $peli_nombre;
+        $peli_genero = $_POST['peli_genero'];
+        $peli_estreno = $_POST['peli_estreno'];
+        $peli_restricciones = $_POST['peli_restricciones'];
+        $peli_img = $_POST['peli_img'];
+        $peli_dire_id = $_POST['peli_dire_id'];
+        $peli_nombre = $_POST['peli_nombre'];
+
+        $query_guardar = "INSERT INTO peliculas (peli_nombre, peli_genero, peli_estreno, peli_restricciones, peli_dire_id, peli_img) VALUES ('{$peli_nombre}', '{$peli_genero}', '{$peli_estreno}', '{$peli_restricciones}', {$peli_dire_id}, '{$peli_img}')";
+        // $query_resultado_guardar = myslqi_query($conexion, $query_guardar);
+        mysqli_query($conexion, $query_guardar);
+
+        header('Location: subir.php');
+    }
+
+?>
