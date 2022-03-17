@@ -1,5 +1,6 @@
 <?php 
     include "conexion.php";
+    ob_start();
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +24,7 @@
     <section class="container">
         <div class="row p-4">
             <a href="subir.php" class="btn btn-success">Cargar Pelicula</a>
-            <a href="#" class="btn btn-info ml-2">Directores</a>
+            <a href="directores.php" class="btn btn-info ml-2">Directores</a>
         </div>
         <div class="row">
             <?php
@@ -70,10 +71,18 @@
                             </div>
                             <div class="mt-2">
                                 <a href="update.php?id=<?php echo $fila['peli_id']; ?>" class="btn btn-small btn-warning">editar</a>
-                                <a href="#" class="btn btn-small btn-danger">borrar</a>
+                                <a href="index.php?delete=<?php echo $fila['peli_id']; ?>" class="btn btn-small btn-danger">borrar</a>
                             </div>
                         </div>
                 <?php }
+
+                if(isset($_GET['delete'])){
+                    // echo $_GET['delete'];
+                    $id_delete = $_GET['delete'];
+                    $query_delete = "DELETE FROM peliculas WHERE peli_id = {$id_delete}";
+                    mysqli_query($conexion, $query_delete);
+                    header("Location: ./");
+                }
                 
             ?>
             <!-- <div class="col-md-3 mb-4">
