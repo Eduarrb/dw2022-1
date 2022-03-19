@@ -32,4 +32,5 @@
     // if($conexion){
     //     echo 'Felicidades estas conectado 😁😁';
     // }
+    require_once("functions.php");
 ?>
