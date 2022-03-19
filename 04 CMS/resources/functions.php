@@ -19,7 +19,7 @@
     // ⚡⚡ funciones front
     function show_categorias(){
         // global $conexion;
-        // $query = "SELECT * FROM categorias";
+        //$query = "SELECT * FROM categorias";
         // $query_res = mysqli_query($conexion, $query);
         $query = query("SELECT * FROM categorias");
         confirmar($query);
