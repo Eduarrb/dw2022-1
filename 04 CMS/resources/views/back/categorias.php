@@ -4,6 +4,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
+            <?php mostrar_msj(); ?>
             <form action="" method="post">
                 <div class="form-group">
                     <label for="cat_nombre">Agregar Categoria</label>
@@ -13,7 +14,22 @@
                     <input type="submit" value="Guardar" name="guardar" class="btn btn-primary">
                 </div>
             </form>
-            <?php categoria_crear(); ?>
+            <?php 
+                categoria_crear(); 
+            ?>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre Categoría</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php show_categorias_admin(); ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

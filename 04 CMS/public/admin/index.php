@@ -20,7 +20,7 @@
 
                 <!-- Begin Page Content -->
                 <?php
-                
+                    
                     /*
                         depenediendo del menu (METODO GET), en esta seccion debe cargar el contenido
                     */
@@ -28,6 +28,7 @@
                         // echo 'estas en categorias';
                         include(VIEW_BACK . DS . "categorias.php");
                     }
+                    
                     if(isset($_GET['usuarios'])){
                         echo 'estas en usuarios';
                     }

@@ -21,6 +21,33 @@
         return mysqli_real_escape_string($conexion, $str);
     }
 
+    function set_mensaje($msj){
+        if(!empty($msj)){
+            $_SESSION['mensaje'] = $msj;
+        } else {
+            $msj = '';
+        }
+    }
+
+    function mostrar_msj(){
+        if(isset($_SESSION['mensaje'])){
+            echo $_SESSION['mensaje'];
+            unset($_SESSION['mensaje']);
+        }
+    }
+
+    function display_success_msj($msj){
+        $mensaje = <<<DELIMITADOR
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Holy guacamole!</strong> {$msj}.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+DELIMITADOR;
+        return $mensaje;
+    }
+
     // ⚡⚡ funciones front
     function show_categorias(){
         // global $conexion;
@@ -47,8 +74,26 @@ DELIMITADOR;
             $cat_nombre = limpiar_string(trim($_POST['cat_nombre']));
             $query = query("INSERT INTO categorias (cat_nombre) VALUES ('{$cat_nombre}')");
             confirmar($query);
+            set_mensaje(display_success_msj('Categoria creada correctamente'));
             header("Location: index.php?categorias");
         }
     }
 
+    function show_categorias_admin(){
+        $query = query("SELECT * FROM categorias");
+        confirmar($query);
+        while($fila = fetch_array($query)){
+            $categorias = <<<DELIMITADOR
+            <tr>
+                <td>{$fila['cat_id']}</td>
+                <td>{$fila['cat_nombre']}</td>
+                <td>
+                    <a href="#" class="btn btn-small btn-warning">editar</a>
+                    <a href="#" class="btn btn-small btn-danger">borrar</a>
+                </td>
+            </tr>
+DELIMITADOR;
+            echo $categorias;
+        }
+    }
 ?>
