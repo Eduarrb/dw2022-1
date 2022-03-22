@@ -15,6 +15,11 @@
     function fetch_array($query){
         return mysqli_fetch_array($query);
     }
+    // 💡💡 SQL INJECTIONS
+    function limpiar_string($str){
+        global $conexion;
+        return mysqli_real_escape_string($conexion, $str);
+    }
 
     // ⚡⚡ funciones front
     function show_categorias(){
@@ -36,6 +41,14 @@ DELIMITADOR;
             echo $categoria;
         }
     }
-    // ⚡⚡ functiones back
+    // ⚡⚡ funciones back
+    function categoria_crear(){
+        if(isset($_POST['guardar'])){
+            $cat_nombre = limpiar_string(trim($_POST['cat_nombre']));
+            $query = query("INSERT INTO categorias (cat_nombre) VALUES ('{$cat_nombre}')");
+            confirmar($query);
+            header("Location: index.php?categorias");
+        }
+    }
 
 ?>
