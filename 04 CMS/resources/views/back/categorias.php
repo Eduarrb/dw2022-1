@@ -15,7 +15,11 @@
                 </div>
             </form>
             <?php 
-                categoria_crear(); 
+                categoria_crear();
+                
+                if(isset($_GET['edit'])){
+                    include(VIEW_BACK . DS . "categoria_edit.php");
+                }
             ?>
         </div>
         <div class="col-md-6">

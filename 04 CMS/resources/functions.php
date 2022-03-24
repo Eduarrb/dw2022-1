@@ -36,6 +36,10 @@
         }
     }
 
+    function redirect($location){
+        header("Location: $location");
+    }
+
     function display_success_msj($msj){
         $mensaje = <<<DELIMITADOR
             <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -88,12 +92,22 @@ DELIMITADOR;
                 <td>{$fila['cat_id']}</td>
                 <td>{$fila['cat_nombre']}</td>
                 <td>
-                    <a href="#" class="btn btn-small btn-warning">editar</a>
-                    <a href="#" class="btn btn-small btn-danger">borrar</a>
+                    <a href="index.php?categorias&edit={$fila['cat_id']}" class="btn btn-small btn-warning">editar</a>
+                    <a href="javascript:void(0)" class="btn btn-small btn-danger delete_link" rel="{$fila['cat_id']}">borrar</a>
                 </td>
             </tr>
 DELIMITADOR;
             echo $categorias;
+        }
+    }
+
+    function categoria_edit($id){
+        if(isset($_POST['actualizar'])){
+            $cat_nombre = limpiar_string(trim($_POST['cat_nombre']));
+            $query = query("UPDATE categorias SET cat_nombre = '{$cat_nombre}' WHERE cat_id = {$id}");
+            confirmar($query);
+            set_mensaje(display_success_msj("Categoria actualizada correctamente 😁😁"));
+            redirect("index.php?categorias");
         }
     }
 ?>
