@@ -9,6 +9,15 @@
                             </div>
                         </div>
                     </div>
+
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <a href="login.php" class="btn btn-primary">Iniciar Sesión</a>
+                            <a href="register.php" class="btn btn-success">Registrate</a>
+                        </div>
+                    </div>
+
                     <!-- Categories widget-->
                     <div class="card mb-4">
                         <div class="card-header">Categories</div>

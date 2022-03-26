@@ -20,6 +20,8 @@
                 if(isset($_GET['edit'])){
                     include(VIEW_BACK . DS . "categoria_edit.php");
                 }
+
+                elemento_delete('categorias', 'cat_id');
             ?>
         </div>
         <div class="col-md-6">

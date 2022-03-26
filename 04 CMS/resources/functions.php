@@ -53,6 +53,18 @@ DELIMITADOR;
     }
 
     // ⚡⚡ funciones front
+    function validar_user_reg(){
+        $min = 3;
+        $max = 10;
+
+        $errores = [];
+
+        if(isset($_POST['registrar'])){
+            echo 'funciona';
+        }
+    }
+
+
     function show_categorias(){
         // global $conexion;
         //$query = "SELECT * FROM categorias";
@@ -73,6 +85,17 @@ DELIMITADOR;
         }
     }
     // ⚡⚡ funciones back
+    // ⚡⚡🔥🔥 function global para eliminar cualquier data de cualquier tabla
+    function elemento_delete($tabla, $nomCol){
+        if(isset($_GET['delete'])){
+            $id = limpiar_string(trim($_GET['delete']));
+            $query = query("DELETE FROM {$tabla} WHERE {$nomCol} = {$id}");
+            confirmar($query);
+            set_mensaje(display_success_msj('Elemento eliminado correctamente'));
+            redirect("index.php?{$tabla}");
+        }
+    }
+    
     function categoria_crear(){
         if(isset($_POST['guardar'])){
             $cat_nombre = limpiar_string(trim($_POST['cat_nombre']));
