@@ -64,6 +64,36 @@ DELIMITADOR;
         return $mensaje;
     }
 
+    function contar_filas($query){
+        return mysqli_num_rows($query);
+    }
+
+    function email_existe($email){
+        $query = query("SELECT * FROM usuarios WHERE user_email = '{$email}'");
+        confirmar($query);
+        // if(mysqli_num_rows($query) >= 1){
+        //     return true;
+        // }
+        if(contar_filas($query) >= 1){
+            return true;
+        }
+        return false;
+    }
+
+    function registro_usuario($nombres, $apellidos, $correo, $pass){
+        $user_nombres = limpiar_string(trim($nombres));
+        $user_apellidos = limpiar_string(trim($apellidos));
+        $user_email = limpiar_string(trim($correo));
+        $user_pass = limpiar_string(trim($pass));
+
+        $user_token = md5($user_email);
+        $user_pass = password_hash($user_pass, PASSWORD_BCRYPT, array('cost' => 12));
+        $query = query("INSERT INTO usuarios (user_nombres, user_apellidos, user_email, user_pass, user_token, user_rol) VALUES ('{$user_nombres}', '{$user_apellidos}', '{$user_email}', '{$user_pass}', '{$user_token}', 'suscriptor')");
+        confirmar($query);
+        return true;
+    }
+
+
     // ⚡⚡ funciones front
     function validar_user_reg(){
         $min = 3;
@@ -90,10 +120,27 @@ DELIMITADOR;
             if(strlen($user_apellidos) > $max){
                 $errores[] = "Tus apellidos no deben tener mas de {$max} caracteres";
             }
+            if(email_existe($user_email)){
+                $errores[] = "El correo ingresado ya existe, intente otra vez 😢";
+            }
+            if($user_pass != $user_pass_confirmar){
+                $errores[] = "Las contraseñas ingresadas deben ser iguales";
+            }
 
             if(!empty($errores)){
                 foreach($errores as $error){
                     echo display_danger_msj($error);
+                }
+            } else {
+                if(registro_usuario($user_nombres, $user_apellidos, $user_email, $user_pass)){
+                    // EL REGISTRO ES SATISFACTORIO
+                    set_mensaje(display_success_msj("Registro satisfactorio, por favor revisa tu bandeja o spam para activar tu cuenta. 😁"));
+                    redirect("register.php");
+
+                } else{
+                    // HUBO UN ERROR
+                    set_mensaje(display_danger_msj("Lo sentimos, no se pudo efectuar la operación. Intente mas tarde 🔥🔥"));
+                    redirect("register.php");
                 }
             }
         }
