@@ -80,6 +80,37 @@ DELIMITADOR;
         return false;
     }
 
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+
+    //Load Composer's autoloader
+    require 'vendor/autoload.php';
+
+    function send_email($email, $asunto, $mensaje){
+        $mail = new PHPMailer();
+        $mail->isSMTP();
+        $mail->Host = 'smtp.mailtrap.io';
+        $mail->SMTPAuth = true;
+        $mail->Username = '2ccf0a987cd073';
+        $mail->Password = '79f9188e5323b3';
+        $mail->Port = 465;
+        $mail->SMTPSecure = 'tls';
+        $mail->isHTML(true);
+        $mail->CharSet = 'UTF-8';
+
+        $mail->setFrom('noreply@tudominio.com', 'Mailer');
+        $mail->addAddress($email);
+        $mail->Subject = $asunto;
+        $mail->Body = $mensaje;
+        if($mail->send()){
+            $emailSent = true;
+        }
+    }
+
+
+
+    // ⚡⚡ funciones front
     function registro_usuario($nombres, $apellidos, $correo, $pass){
         $user_nombres = limpiar_string(trim($nombres));
         $user_apellidos = limpiar_string(trim($apellidos));
@@ -90,11 +121,12 @@ DELIMITADOR;
         $user_pass = password_hash($user_pass, PASSWORD_BCRYPT, array('cost' => 12));
         $query = query("INSERT INTO usuarios (user_nombres, user_apellidos, user_email, user_pass, user_token, user_rol) VALUES ('{$user_nombres}', '{$user_apellidos}', '{$user_email}', '{$user_pass}', '{$user_token}', 'suscriptor')");
         confirmar($query);
+        $mensaje = "Por favor pulsa o has click en el enlace para activar tu cuenta. <br><a href='http://localhost/dw2022-1/04%20CMS/public/activate.php?email={$user_email}&token={$user_token}' target='_blank'>Activar cuenta</a>";
+        send_email($user_email, 'Activacion de cuenta', $mensaje);
         return true;
     }
 
 
-    // ⚡⚡ funciones front
     function validar_user_reg(){
         $min = 3;
         $max = 10;
