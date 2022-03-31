@@ -108,7 +108,23 @@ DELIMITADOR;
         }
     }
 
-
+    function activar_usuario(){
+        $user_email = limpiar_string(trim($_GET['email']));
+        $user_token = limpiar_string(trim($_GET['token']));
+        $query = query("SELECT user_id FROM usuarios WHERE user_email = '{$user_email}' AND user_token = '{$user_token}'");
+        confirmar($query);
+        if(contar_filas($query) == 1){
+            $fila = fetch_array($query);
+            $user_id = $fila['user_id'];
+            $query = query("UPDATE usuarios SET user_status = 1, user_token = '' WHERE user_id = {$user_id}");
+            confirmar($query);
+            set_mensaje(display_success_msj("Su cuenta a sido verificada y activada, por favor inicie sesión"));
+            redirect('login.php');  
+        } else {
+            set_mensaje(display_danger_msj("Los datos son erroneos. Vuelva a verificar 🤷‍♀️"));
+            redirect("register.php");
+        }
+    }
 
     // ⚡⚡ funciones front
     function registro_usuario($nombres, $apellidos, $correo, $pass){
