@@ -108,6 +108,49 @@ DELIMITADOR;
         }
     }
 
+    // ⚡⚡ funciones front
+    function login_user($email, $pass, $recordarme){
+        $query = query("SELECT * FROM usuarios WHERE user_email = '{$email}' AND user_status = 1");
+        confirmar($query);
+        if(contar_filas($query) == 1){
+            $fila = fetch_array($query);
+            $user_id = $fila['user_id'];
+            $user_pass = $fila['user_pass'];
+            $user_rol = $fila['user_rol'];
+            $user_nombres = $fila['user_nombres'];
+            $user_apellidos = $fila['user_apellidos'];
+
+            // VALIDAR EL PASSWORD
+            if(password_verify($pass, $user_pass)){
+                // CREAR VARAIBLES DE SESION
+                $_SESSION['user_id'] = $user_id;
+                $_SESSION['user_nombres'] = $user_nombres;
+                $_SESSION['user_apellidos'] = $user_apellidos;
+                $_SESSION['user_rol'] = $user_rol;
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    function validar_user_login(){
+        if(isset($_POST['login'])){
+            $user_email = limpiar_string(trim($_POST['user_email']));
+            $user_pass = limpiar_string(trim($_POST['user_pass']));
+            $user_recordarme = isset($_POST['user_recordarme']);
+            
+            if(login_user($user_email, $user_pass, $user_recordarme)){
+                redirect('./');
+            } else {
+                set_mensaje(display_danger_msj('Tu correo o password son incorrectos 😢😢'));
+                redirect('login.php');
+            }
+        }
+    }
+
     function activar_usuario(){
         $user_email = limpiar_string(trim($_GET['email']));
         $user_token = limpiar_string(trim($_GET['token']));
@@ -126,7 +169,6 @@ DELIMITADOR;
         }
     }
 
-    // ⚡⚡ funciones front
     function registro_usuario($nombres, $apellidos, $correo, $pass){
         $user_nombres = limpiar_string(trim($nombres));
         $user_apellidos = limpiar_string(trim($apellidos));

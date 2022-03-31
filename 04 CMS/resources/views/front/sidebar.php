@@ -13,8 +13,23 @@
 
                     <div class="card mb-4">
                         <div class="card-body">
-                            <a href="login.php" class="btn btn-primary">Iniciar Sesión</a>
-                            <a href="register.php" class="btn btn-success">Registrate</a>
+                            <?php
+                                if(isset($_SESSION['user_rol'])){
+                                    ?>
+                                        <div>
+                                            Bienvenido(a), <?php echo $_SESSION['user_nombres'] . " " . $_SESSION['user_apellidos']; ?>
+                                            <div>
+                                                <a href="logout.php" class="btn btn-warning">Cerrar Sesión</a>
+                                            </div>
+                                        </div>
+
+                                <?php } else {
+                                    ?>
+                                        <a href="login.php" class="btn btn-primary">Iniciar Sesión</a>
+                                        <a href="register.php" class="btn btn-success">Registrate</a>
+                                <?php }
+
+                            ?>
                         </div>
                     </div>
 

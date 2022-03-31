@@ -11,6 +11,12 @@
                     <h1 class="fw-bolder">Welcome to Blog Home!</h1>
                     <p class="lead mb-0">A Bootstrap 5 starter layout for your next blog homepage</p>
                 </div>
+                <?php
+                    // echo $_SESSION['user_id'];
+                    // echo $_SESSION['user_nombres'];
+                    // echo $_SESSION['user_apellidos'];
+                    // echo $_SESSION['user_rol'];
+                ?>
             </div>
         </header>
         <!-- Page content-->

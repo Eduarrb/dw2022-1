@@ -44,6 +44,7 @@
                                     </div>
                                     <?php
                                         mostrar_msj();
+                                        validar_user_login();
                                     ?>
                                     <form class="user" method="post">
                                         <div class="form-group">
