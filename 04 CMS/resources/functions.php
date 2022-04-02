@@ -107,8 +107,40 @@ DELIMITADOR;
             $emailSent = true;
         }
     }
+    
+    function token_generator(){
+        return $token = $_SESSION['token'] = md5(uniqid(mt_rand(), true));
+    }
 
     // ⚡⚡ funciones front
+    function recover_password(){
+        if(isset($_POST['recover'])){
+            if(isset($_SESSION['token']) && $_POST['user_token'] == $_SESSION['token']){
+                $user_email = limpiar_string(trim($_POST['user_email']));
+                if(email_existe($user_email)){
+                    $codigo_validacion = md5($user_email . microtime());
+                    setcookie("temp_access_code", $codigo_validacion, time() + 600);
+                    $query = query("UPDATE usuarios SET user_token = '{$codigo_validacion}' WHERE user_email = '{$user_email}'");
+                    confirmar($query);
+                    $asunto = 'Por favor cambie su contraseña';
+                    $mensaje = "Por favor ingrese el siguiente codigo <strong>{$codigo_validacion}</strong> en el siguiente enlace<br><a href='http://localhost/dw2022-1/04%20CMS/public/code.php?email={$user_email}&code={$codigo_validacion}' target='_blank'>Cambiar contraseña</a>";
+                    if(!send_email($user_email, $asunto, $mensaje)){
+                        set_mensaje(display_danger_msj('El correo no se pudo enviar, intente más tarde'));
+                        redirect('forgot-password.php');
+                    }
+                    set_mensaje(display_success_msj('Tu codigo de validacion fue enviado a tu correo. Por favor revisa tu bandeja o spam. Esto puede tardar unos minutos'));
+                    redirect('forgot-password.php');
+                } else {
+                    set_mensaje(display_danger_msj("El correo ingresado no existe"));
+                    redirect("forgot-password.php");
+                }
+            } else{
+                set_mensaje(display_danger_msj('datos no validos'));
+                redirect("forgot-password.php");
+            }
+        }
+    }
+    
     function login_user($email, $pass, $recordarme){
         $query = query("SELECT * FROM usuarios WHERE user_email = '{$email}' AND user_status = 1");
         confirmar($query);

@@ -7,11 +7,23 @@
                         <?php
                             show_categorias();
                         ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="admin">
-                                ADMIN
-                            </a>
-                        </li>
+                        <?php
+                            if(isset($_SESSION['user_rol']) && $_SESSION['user_rol'] == 'admin'){
+                                ?>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="admin">
+                                            ADMIN
+                                        </a>
+                                    </li>
+                            <?php } else if (isset($_SESSION['user_rol']) && $_SESSION['user_rol'] == 'god'){
+                                ?>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="admin">
+                                            ADMIN
+                                        </a>
+                                    </li>
+                            <?php }
+                        ?>
                     </ul>
                 </div>
             </div>
