@@ -113,6 +113,35 @@ DELIMITADOR;
     }
 
     // ⚡⚡ funciones front
+    function validar_codigo(){
+        if(isset($_COOKIE['temp_access_code'])){
+            if(!isset($_GET['email']) || !isset($_GET['code'])){
+                set_mensaje(display_danger_msj('Lo sentimos, no se pudo verificar correctamente los datos. Intentelo otra vez'));
+                redirect('forgot-password.php');
+            } else if(empty($_GET['email']) || empty($_GET['code'])){
+                set_mensaje(display_danger_msj('Lo sentimos, no se pudo verificar correctamente los datos. Intentelo otra vez'));
+                redirect('forgot-password.php');
+            } else {
+                if(isset($_POST['reset'])){
+                    $user_email = limpiar_string(trim($_GET['email']));
+                    $user_token = limpiar_string(trim($_POST['user_token']));
+                    $query = query("SELECT * FROM usuarios WHERE user_email = '{$user_email}' AND user_token = '{$user_token}'");
+                    confirmar($query);
+                    if(contar_filas($query) == 1){
+                        setcookie('temp_access_code', $user_token, time() + 1000);
+                        redirect("reset.php?email={$user_email}&token={$user_token}");
+                    } else {
+                        set_mensaje(display_danger_msj('Lo sentimos, datos invalidos'));
+                        redirect('forgot-password.php');
+                    }
+                }
+            }
+        } else {
+            set_mensaje(display_danger_msj('Lo sentimos, el tiempo de validación ha caducado. Intentelo otra vez'));
+            redirect('forgot-password.php');
+        }
+    }
+
     function recover_password(){
         if(isset($_POST['recover'])){
             if(isset($_SESSION['token']) && $_POST['user_token'] == $_SESSION['token']){
