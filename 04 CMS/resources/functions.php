@@ -113,6 +113,39 @@ DELIMITADOR;
     }
 
     // ⚡⚡ funciones front
+    function password_reset(){
+        if(isset($_COOKIE['temp_access_code'])){
+            if(!isset($_GET['email']) || !isset($_GET['token'])){
+                set_mensaje(display_danger_msj('Lo sentimos, no se pudo verificar correctamente los datos. Intentelo otra vez'));
+                redirect('forgot-password.php');
+            } else {
+                if(isset($_POST['confirmar'])){
+                    $user_pass = limpiar_string(trim($_POST['user_pass']));
+                    $user_pass_confirmar = limpiar_string(trim($_POST['user_pass_confirmar']));
+                    $user_email = limpiar_string(trim($_GET['email']));
+                    // echo $user_pass;
+                    // echo '<br>';
+                    // echo $user_pass_confirmar;
+
+                    if($user_pass != $user_pass_confirmar){
+                        echo display_danger_msj('Las contraseñas deben ser iguales');
+                        
+                    } else {
+                        $user_pass = password_hash($user_pass, PASSWORD_BCRYPT, array('cost' => 12));
+                        $query = query("UPDATE usuarios SET user_pass = '{$user_pass}', user_token = '' WHERE user_email = '{$user_email}'");
+                        confirmar($query);
+                        set_mensaje(display_success_msj('La constraseña se cambió correctamente, por favor inicie sesión'));
+                        redirect('login.php');
+                    }
+                }
+            }
+        }
+        else {
+            set_mensaje(display_danger_msj('Lo sentimos, el tiempo de validación a caducado. Intentelo otra vez'));
+            redirect('forgot-password.php');
+        }
+    }
+
     function validar_codigo(){
         if(isset($_COOKIE['temp_access_code'])){
             if(!isset($_GET['email']) || !isset($_GET['code'])){
