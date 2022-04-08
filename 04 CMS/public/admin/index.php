@@ -28,9 +28,15 @@
                         // echo 'estas en categorias';
                         include(VIEW_BACK . DS . "categorias.php");
                     }
-                    
-                    if(isset($_GET['usuarios'])){
-                        echo 'estas en usuarios';
+
+                    if(isset($_GET['suscriptores'])){
+                        include(VIEW_BACK . DS . 'user_suscriptores.php');
+                    }
+                    if(isset($_GET['administradores'])){
+                        include(VIEW_BACK . DS . 'user_administradores.php');
+                    }
+                    if(isset($_GET['desactivados'])){
+                        include(VIEW_BACK . DS . 'user_desactivados.php');
                     }
                 
                 ?>

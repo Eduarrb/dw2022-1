@@ -85,7 +85,7 @@ DELIMITADOR;
     use PHPMailer\PHPMailer\Exception;
 
     //Load Composer's autoloader
-    require 'vendor/autoload.php';
+    // require 'vendor/autoload.php';
 
     function send_email($email, $asunto, $mensaje){
         $mail = new PHPMailer();
@@ -351,6 +351,67 @@ DELIMITADOR;
         }
     }
     // ⚡⚡ funciones back
+    function show_user_desactivado(){
+        $query = query("SELECT * FROM usuarios WHERE user_status = 0");
+        confirmar($query);
+        while($fila = fetch_array($query)){
+            $usuarios = <<<DELIMITADOR
+                <tr>
+                    <td>{$fila['user_nombres']}</td>
+                    <td>{$fila['user_apellidos']}</td>
+                    <td>{$fila['user_email']}</td>
+                    <td>{$fila['user_rol']}</td>
+                    <td>
+                        <a href="index.php?desactivados&enable={$fila['user_id']}" class="btn btn-small btn-success">Activar</a>
+                    </td>
+                </tr>
+DELIMITADOR;
+            echo $usuarios;
+        }
+    }
+
+    function usuarios_desactivar(){
+        if(isset($_GET['deni'])){
+            $id = limpiar_string(trim($_GET['deni']));
+            $query = query("UPDATE usuarios SET user_status = 0 WHERE user_id = {$id}");
+            confirmar($query);
+            set_mensaje(display_success_msj("Usuario desactivadao correctamente"));
+            redirect('index.php?desactivados');
+        }
+    }
+
+    function usuarios_cambiar_rol($rol, $parametro_vista){
+        if(isset($_GET['admin'])){
+            $id = limpiar_string(trim($_GET['admin']));
+            $query = query("UPDATE usuarios SET user_rol = '{$rol}' WHERE user_id = {$id}");
+            confirmar($query);
+            set_mensaje(display_success_msj('El cambio de rol se hizo satisfactoriamente'));
+            redirect("index.php?{$parametro_vista}");
+        }
+    }
+
+    function show_user_rol($rol, $estado, $parametro){
+        $query = query("SELECT * FROM usuarios WHERE user_rol = '{$rol}' AND user_status = {$estado}");
+        confirmar($query);
+        while($fila = fetch_array($query)){
+            $usuarios = <<<DELIMITADOR
+                <tr>
+                    <td>{$fila['user_nombres']}</td>
+                    <td>{$fila['user_apellidos']}</td>
+                    <td>{$fila['user_email']}</td>
+                    <td>
+                        <a href="index.php?{$parametro}&admin={$fila['user_id']}" class="btn btn-small btn-success">Cambiar</a>
+                    </td>
+                    <td>
+                        <a href="index.php?{$parametro}&deni={$fila['user_id']}" class="btn btn-small btn-danger">Desactivar</a>
+                    </td>
+                </tr>
+DELIMITADOR;
+            echo $usuarios;
+        }
+    }
+
+
     // ⚡⚡🔥🔥 function global para eliminar cualquier data de cualquier tabla
     function elemento_delete($tabla, $nomCol){
         if(isset($_GET['delete'])){
