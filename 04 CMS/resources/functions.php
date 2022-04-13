@@ -113,6 +113,55 @@ DELIMITADOR;
     }
 
     // ⚡⚡ funciones front
+    function publicacion_individual_mostrar(){
+        if(isset($_GET['blog'])){
+            $id = limpiar_string(trim($_GET['blog']));
+            $query = query("SELECT * FROM publicaciones a INNER JOIN usuarios b ON a.pub_user_id = b.user_id WHERE pub_id = {$id}");
+            confirmar($query);
+            return fetch_array($query);
+        }
+    }
+
+    function publicaciones_mostrar_resto($id_excluyente){
+        $query = query("SELECT pub_id, pub_img, pub_fecha, pub_titulo, pub_resumen FROM publicaciones WHERE pub_status = 'publicado' AND pub_id != {$id_excluyente} ORDER BY pub_id DESC");
+        confirmar($query);
+        while($fila = fetch_array($query)){
+            $publicaciones = <<<DELIMITADOR
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <a href="post.php?blog={$fila['pub_id']}"><img class="card-img-top" src="img/{$fila['pub_img']}" alt="{$fila['pub_titulo']}" /></a>
+                        <div class="card-body">
+                            <div class="small text-muted">{$fila['pub_fecha']}</div>
+                            <h2 class="card-title h4">{$fila['pub_titulo']}</h2>
+                            <p class="card-text">{$fila['pub_resumen']}</p>
+                            <a class="btn btn-primary" href="post.php?blog={$fila['pub_id']}">Leer más →</a>
+                        </div>
+                    </div>
+                </div>
+DELIMITADOR;
+            echo $publicaciones;
+        }
+    }
+    function publicaciones_mostrar_ultimo(){
+        global $ultimo_id;
+        $query = query("SELECT pub_id, pub_img, pub_fecha, pub_titulo, pub_resumen FROM publicaciones WHERE pub_status = 'publicado' ORDER BY pub_id DESC LIMIT 1");
+        confirmar($query);
+        $fila = fetch_array($query);
+        $ultimo_id = $fila['pub_id'];
+        $publicacion = <<<DELIMITADOR
+            <div class="card mb-4">
+                <a href="post.php?blog={$fila['pub_id']}"><img class="card-img-top" src="img/{$fila['pub_img']}" alt="{$fila['pub_titulo']}" /></a>
+                <div class="card-body">
+                    <div class="small text-muted">{$fila['pub_fecha']}</div>
+                    <h2 class="card-title">{$fila['pub_titulo']}</h2>
+                    <p class="card-text">{$fila['pub_resumen']}</p>
+                    <a class="btn btn-primary" href="post.php?blog={$fila['pub_id']}">Leer más →</a>
+                </div>
+            </div>
+DELIMITADOR;
+        echo $publicacion;
+    }
+
     function password_reset(){
         if(isset($_COOKIE['temp_access_code'])){
             if(!isset($_GET['email']) || !isset($_GET['token'])){
@@ -379,7 +428,7 @@ DELIMITADOR;
             redirect('index.php?desactivados');
         }
     }
-
+    
     function usuarios_cambiar_rol($rol, $parametro_vista){
         if(isset($_GET['admin'])){
             $id = limpiar_string(trim($_GET['admin']));
