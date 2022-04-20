@@ -28,7 +28,12 @@
                         // echo 'estas en categorias';
                         include(VIEW_BACK . DS . "categorias.php");
                     }
-
+                    if(isset($_GET['publicaciones'])){
+                        include(VIEW_BACK . DS . "publicaciones.php");
+                    }
+                    if(isset($_GET['publicaciones_add'])){
+                        include(VIEW_BACK . DS . "publicaciones_add.php");
+                    }
                     if(isset($_GET['suscriptores'])){
                         include(VIEW_BACK . DS . 'user_suscriptores.php');
                     }

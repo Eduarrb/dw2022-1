@@ -30,6 +30,11 @@
                     <i class="fas fa-calendar-alt"></i>
                     <span>Categorias</span></a>
             </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="index.php?publicaciones">
+                    <i class="fas fa-vote-yea"></i>
+                    <span>Publicaciones</span></a>
+            </li>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#usuarios"

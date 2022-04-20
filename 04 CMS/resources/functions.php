@@ -402,6 +402,44 @@ DELIMITADOR;
         }
     }
     // ⚡⚡ funciones back
+    function categorias_mostrar_options(){
+        $query = query("SELECT * FROM categorias");
+        confirmar($query);
+        while($fila = fetch_array($query)){
+            $categoria = <<<DELIMITADOR
+                <option value="{$fila['cat_id']}">{$fila['cat_nombre']}</option>
+DELIMITADOR;
+            echo $categoria;
+        }
+    }
+    function publicaciones_mostrar_admin(){
+        if($_SESSION['user_rol'] == 'god'){
+            $query = query("SELECT * FROM publicaciones a INNER JOIN categorias b ON a.pub_cat_id = b.cat_id INNER JOIN usuarios c ON a.pub_user_id = c.user_id ORDER BY a.pub_id DESC");
+            confirmar($query);
+        } else {
+            $query = query("SELECT * FROM publicaciones a INNER JOIN categorias b ON a.pub_cat_id = b.cat_id INNER JOIN usuarios c ON a.pub_user_id = c.user_id WHERE c.user_id = {$_SESSION['user_id']} ORDER BY a.pub_id DESC");
+            confirmar($query);
+        }
+        while($fila = fetch_array($query)){
+            $publicacion = <<<DELIMITADOR
+                <tr>
+                    <td>{$fila['cat_nombre']}</td>
+                    <td><a href="../post.php?blog={$fila['pub_id']}" target="_blank">{$fila['pub_titulo']}</a></td>
+                    <td>{$fila['user_nombres']} {$fila['user_apellidos']}</td>
+                    <td>{$fila['pub_resumen']}</td>
+                    <td><img src="../img/{$fila['pub_img']}" alt="" width="150"></td>
+                    <td>{$fila['pub_fecha']}</td>
+                    <td>{$fila['pub_status']}</td>
+                    <td>{$fila['pub_vistas']}</td>
+                    <td>
+                        <a href="#" class="btn btn-small btn-success">editar</a>
+                        <a href="#" class="btn btn-small btn-danger">borrar</a>
+                    </td>
+                </tr>
+DELIMITADOR;
+            echo $publicacion;
+        }
+    }
     function show_user_desactivado(){
         $query = query("SELECT * FROM usuarios WHERE user_status = 0");
         confirmar($query);
