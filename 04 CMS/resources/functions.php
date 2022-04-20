@@ -116,6 +116,8 @@ DELIMITADOR;
     function publicacion_individual_mostrar(){
         if(isset($_GET['blog'])){
             $id = limpiar_string(trim($_GET['blog']));
+            $query = query("UPDATE publicaciones SET pub_vistas = pub_vistas + 1 WHERE pub_id = {$id}");
+            confirmar($query);
             $query = query("SELECT * FROM publicaciones a INNER JOIN usuarios b ON a.pub_user_id = b.user_id WHERE pub_id = {$id}");
             confirmar($query);
             return fetch_array($query);
