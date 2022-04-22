@@ -402,6 +402,66 @@ DELIMITADOR;
         }
     }
     // ⚡⚡ funciones back
+    function mostrar_options_status_editar($status){
+        if($status == 'publicado'){
+            ?>
+                <option value="pendiente">Pendiente</option>
+        <?php }
+        else {
+            ?>
+                <option value="publicado">Publicado</option>
+        <?php }
+    }
+    function mostrar_options_cat_editar($id){
+        $query = query("SELECT * FROM categorias");
+        confirmar($query);
+        while($fila = fetch_array($query)){
+            $cat_id = $fila['cat_id'];
+            $cat_nombre = $fila['cat_nombre'];
+
+            if($cat_id == $id){
+                ?>
+                    <option value="<?php echo $fila['cat_id']?>" selected><?php echo $fila['cat_nombre']; ?></option>
+            <?php }
+            else {
+                ?>
+                    <option value="<?php echo $fila['cat_id']?>"><?php echo $fila['cat_nombre']; ?></option>
+            <?php }
+        }
+    }
+
+    function mostrar_publicacion_editar(){
+        if(isset($_GET['publicaciones_edit'])){
+            $id = limpiar_string(trim($_GET['publicaciones_edit']));
+            $query = query("SELECT * FROM publicaciones WHERE pub_id = {$id}");
+            confirmar($query);
+            return fetch_array($query);
+        }
+    }
+
+    function publicacion_agregar(){
+        if(isset($_POST['guardar'])){
+            $pub_titulo = limpiar_string(trim($_POST['pub_titulo']));
+            $pub_cat_id = limpiar_string(trim($_POST['pub_cat_id']));
+            $pub_resumen = limpiar_string(trim($_POST['pub_resumen']));
+            $pub_contenido = limpiar_string(trim($_POST['pub_contenido']));
+            $pub_img = limpiar_string(trim($_FILES['pub_img']['name']));
+            $pub_img_temp = $_FILES['pub_img']['tmp_name'];
+            $pub_status = limpiar_string(trim($_POST['pub_status']));
+            
+            // print_r($pub_img);
+            $pub_img = md5(uniqid()) . "." . explode('.', $pub_img)[1];
+            // gatito.bonito.lindos.png
+            // 2165435156435.png
+            // echo $pub_img;
+            move_uploaded_file($pub_img_temp, "../img/{$pub_img}");
+
+            $query = query("INSERT INTO publicaciones (pub_titulo, pub_cat_id, pub_user_id, pub_resumen, pub_contenido, pub_img, pub_fecha, pub_status) VALUES ('{$pub_titulo}', {$pub_cat_id}, {$_SESSION['user_id']}, '{$pub_resumen}', '{$pub_contenido}', '{$pub_img}', NOW(), '{$pub_status}')");
+            confirmar($query);
+            set_mensaje(display_success_msj('La publicacion fue guardada exitosamente 😊😊'));
+            redirect('index.php?publicaciones');
+        }
+    }
     function categorias_mostrar_options(){
         $query = query("SELECT * FROM categorias");
         confirmar($query);
@@ -432,7 +492,7 @@ DELIMITADOR;
                     <td>{$fila['pub_status']}</td>
                     <td>{$fila['pub_vistas']}</td>
                     <td>
-                        <a href="#" class="btn btn-small btn-success">editar</a>
+                        <a href="index.php?publicaciones_edit={$fila['pub_id']}" class="btn btn-small btn-success">editar</a>
                         <a href="#" class="btn btn-small btn-danger">borrar</a>
                     </td>
                 </tr>

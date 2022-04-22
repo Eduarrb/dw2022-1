@@ -4,7 +4,7 @@
     </div>
     <div class="row">
         <a href="index.php?publicaciones_add" class="btn btn-primary">+ Agregar Publicación</a>
-        <div class="col-md-6">
+        <div class="col-md-12">
             <?php mostrar_msj(); ?>
         </div>
     </div>
