@@ -40,10 +40,10 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Guardar" class="btn btn-primary btn-lg" name="guardar">
+                    <input type="submit" value="Editar" class="btn btn-primary btn-lg" name="editar">
                 </div>
             </form>
-            <?php ?>
+            <?php publicacion_editar($fila['pub_id'], $fila['pub_img']); ?>
         </div>
     </div>
 </div>

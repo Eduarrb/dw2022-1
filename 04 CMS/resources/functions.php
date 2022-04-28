@@ -402,6 +402,30 @@ DELIMITADOR;
         }
     }
     // ⚡⚡ funciones back
+    function publicacion_editar($pub_id, $img_name){
+        if(isset($_POST['editar'])){
+            $pub_titulo = limpiar_string(trim($_POST['pub_titulo']));
+            $pub_cat_id = limpiar_string(trim($_POST['pub_cat_id']));
+            $pub_resumen = limpiar_string(trim($_POST['pub_resumen']));
+            $pub_contenido = limpiar_string(trim($_POST['pub_contenido']));
+            $pub_img = limpiar_string(trim($_FILES['pub_img']['name']));
+            $pub_img_temp = $_FILES['pub_img']['tmp_name'];
+            $pub_status = limpiar_string(trim($_POST['pub_status']));
+
+            if(empty($pub_img)){
+                $pub_img = $img_name;
+            } else {
+                $imgLocation = "../img/{$img_name}";
+                unlink($imgLocation);
+                $pub_img = md5(uniqid()) . "." . explode('.', $pub_img)[1];
+                move_uploaded_file($pub_img_temp, "../img/{$pub_img}");
+            }
+            $query = query("UPDATE publicaciones SET pub_cat_id = {$pub_cat_id}, pub_titulo = '{$pub_titulo}', pub_resumen = '{$pub_resumen}', pub_contenido = '{$pub_contenido}', pub_img = '{$pub_img}', pub_status = '{$pub_status}' WHERE pub_id = {$pub_id}");
+            confirmar($query);
+            set_mensaje(display_success_msj('Publicación actualizada correctamente. 😊'));
+            redirect('index.php?publicaciones');
+        }
+    }
     function mostrar_options_status_editar($status){
         if($status == 'publicado'){
             ?>
