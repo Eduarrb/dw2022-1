@@ -42,11 +42,33 @@
                         </section>
                     </article>
                     <!-- Comments section-->
+                    <div>
+                        <?php mostrar_msj(); ?>
+                    </div>
                     <section class="mb-5">
                         <div class="card bg-light">
                             <div class="card-body">
                                 <!-- Comment form-->
-                                <form class="mb-4"><textarea class="form-control" rows="3" placeholder="Join the discussion and leave a comment!"></textarea></form>
+                                <?php 
+                                    if(isset($_SESSION['user_rol'])){
+                                        ?>
+                                            <form class="mb-4" method="post">
+                                                <textarea class="form-control" rows="3" name="com_mensaje" placeholder="Deja tu mensaje"></textarea>
+                                                <div class="form_group mt-3">
+                                                    <input type="submit" value="Enviar" name="enviar" class="btn btn-primary">
+                                                </div>
+                                            </form>
+                                    <?php } else {
+                                        ?>
+                                            <div class="alert alert-warning" role="alert">
+                                                Debes estar registrado o iniciar sesión para poder dejar un comentario 💥💥
+                                            </div>
+                                    <?php }
+
+                                    if(isset($_SESSION['user_id'])){
+                                        comentario_crear($fila['pub_id'], $_SESSION['user_id']);
+                                    }
+                                ?>
                                 <!-- Comment with nested comments-->
                                 <div class="d-flex mb-4">
                                     <!-- Parent comment-->

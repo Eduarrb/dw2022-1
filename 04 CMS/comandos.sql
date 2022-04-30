@@ -48,3 +48,25 @@ INSERT INTO publicaciones(pub_cat_id, pub_user_id, pub_titulo, pub_resumen, pub_
 SELECT * FROM publicaciones WHERE pub_status = 'publicado' ORDER BY pub_id DESC LIMIT 1
 SELECT * FROM publicaciones WHERE pub_status = 'publicado' AND pub_id != 6 ORDER BY pub_id DESC
 
+CREATE TABLE comentarios (
+    com_id INT UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    com_user_id INT NOT NULL,
+    com_pub_id INT NOT NULL,
+    com_mensaje TEXT NOT NULL,
+    com_fecha DATETIME,
+    com_status VARCHAR(50) NOT NULL
+)
+
+SELECT 
+    a.com_id,
+    c.pub_id,
+    c.pub_titulo,
+    CONCAT(b.user_nombres, ' ', b.user_apellidos) AS usuario,
+    a.com_mensaje,
+    a.com_fecha,
+    a.com_status,
+    c.pub_user_id
+    FROM comentarios a
+        INNER JOIN usuarios b ON a.com_user_id = b.user_id
+        INNER JOIN publicaciones c ON a.com_pub_id = c.pub_id
+    WHERE a.com_status = 'pendiente' AND c.pub_user_id = 6

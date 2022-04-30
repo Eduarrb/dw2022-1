@@ -402,6 +402,38 @@ DELIMITADOR;
         }
     }
     // ⚡⚡ funciones back
+    function comentarios_mostrar_admin(){
+        $query = query("SELECT a.com_id, c.pub_id, c.pub_titulo, CONCAT(b.user_nombres, ' ', b.user_apellidos) AS usuario, a.com_mensaje, a.com_fecha, a.com_status, c.pub_user_id FROM comentarios a INNER JOIN usuarios b ON a.com_user_id = b.user_id INNER JOIN publicaciones c ON a.com_pub_id = c.pub_id WHERE a.com_status = 'pendiente' AND c.pub_user_id = {$_SESSION['user_id']}");
+        confirmar($query);
+        while($fila = fetch_array($query)){
+            $comentario = <<<DELIMITADOR
+                <tr>
+                    <td>
+                        <a href="../post.php?blog={$fila['pub_id']}" target="_blank">{$fila['pub_titulo']}</a>
+                    </td>
+                    <td>{$fila['usuario']}</td>
+                    <td>{$fila['com_mensaje']}</td>
+                    <td>{$fila['com_fecha']}</td>
+                    <td>{$fila['com_status']}</td>
+                    <td>
+                        <a href="#" class="btn btn-small btn-success">aprobar</a>
+                    </td>
+                    <td>
+                        <a href="#" class="btn btn-small btn-danger">borrar</a>
+                    </td>
+                </tr>
+DELIMITADOR;
+            echo $comentario;
+        }
+    }
+    function comentario_crear($pub_id, $user_id){
+        if(isset($_POST['enviar'])){
+            $com_mensaje = limpiar_string(trim($_POST['com_mensaje']));
+            $query = query("INSERT INTO comentarios (com_user_id, com_pub_id, com_mensaje, com_fecha, com_status) VALUES ({$user_id}, {$pub_id}, '{$com_mensaje}', NOW(), 'pendiente')");
+            set_mensaje(display_success_msj("Tu comentario ha sido enviado satisfactoriamente. Espere a la aprobación del ADMIN"));
+            redirect("post.php?blog={$pub_id}");
+        }
+    }
     function publicacion_editar($pub_id, $img_name){
         if(isset($_POST['editar'])){
             $pub_titulo = limpiar_string(trim($_POST['pub_titulo']));
@@ -517,7 +549,7 @@ DELIMITADOR;
                     <td>{$fila['pub_vistas']}</td>
                     <td>
                         <a href="index.php?publicaciones_edit={$fila['pub_id']}" class="btn btn-small btn-success">editar</a>
-                        <a href="#" class="btn btn-small btn-danger">borrar</a>
+                        <a href="javascript:void(0)" class="btn btn-small btn-danger delete_link" rel="{$fila['pub_id']}" table="publicaciones">borrar</a>
                     </td>
                 </tr>
 DELIMITADOR;

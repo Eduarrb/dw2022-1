@@ -25,22 +25,9 @@
                 </thead>
                 <tbody>
                     <?php publicaciones_mostrar_admin(); ?>
-                    <!-- <tr>
-                        <td>PHP</td>
-                        <td><a href="../post.php?blog=9" target="_blank">Curso PHP</a></td>
-                        <td>Pedro Salas</td>
-                        <td>Resumen</td>
-                        <td><img src="../img/01.png" alt="" width="150"></td>
-                        <td>2022-01-01</td>
-                        <td>Publicado</td>
-                        <td>1246845</td>
-                        <td>
-                            <a href="#" class="btn btn-small btn-success">editar</a>
-                            <a href="#" class="btn btn-small btn-danger">borrar</a>
-                        </td>
-                    </tr> -->
                 </tbody>
             </table>
+            <?php elemento_delete("publicaciones", "pub_id") ?>
         </div>
     </div>
 </div>

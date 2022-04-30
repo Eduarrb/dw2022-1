@@ -37,6 +37,9 @@
                     if(isset($_GET['publicaciones_edit'])){
                         include(VIEW_BACK . DS . "publicaciones_edit.php");
                     }
+                    if(isset($_GET['comentarios'])){
+                        include(VIEW_BACK . DS . "comentarios.php");
+                    }
                     if(isset($_GET['suscriptores'])){
                         include(VIEW_BACK . DS . 'user_suscriptores.php');
                     }
