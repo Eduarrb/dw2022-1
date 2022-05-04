@@ -113,6 +113,29 @@ DELIMITADOR;
     }
 
     // ⚡⚡ funciones front
+    function comentarios_mostrar($pub_id){
+        $query = query("SELECT CONCAT(b.user_nombres, ' ', b.user_apellidos) AS usuario, a.com_mensaje, b.user_img
+        FROM comentarios a INNER JOIN usuarios b ON a.com_user_id = b.user_id WHERE a.com_status = 'aprobado' AND a.com_pub_id = {$pub_id}");
+        confirmar($query);
+        while($fila = fetch_array($query)){
+            $user_img = $fila['user_img'];
+            if(empty($user_img)){
+                $user_img = 'https://dummyimage.com/50x50/ced4da/6c757d.jpg';
+            } else {
+                $user_img = "img/{$user_img}";
+            }
+            $comentario = <<<DELIMITADOR
+                <div class="d-flex mb-4">
+                    <div class="flex-shrink-0"><img class="rounded-circle" src="{$user_img}" alt="..." /></div>
+                    <div class="ms-3">
+                        <div class="fw-bold">{$fila['usuario']}</div>
+                        {$fila['com_mensaje']}
+                    </div>
+                </div>
+DELIMITADOR;
+            echo $comentario;
+        }
+    }
     function publicacion_individual_mostrar(){
         if(isset($_GET['blog'])){
             $id = limpiar_string(trim($_GET['blog']));
@@ -402,6 +425,15 @@ DELIMITADOR;
         }
     }
     // ⚡⚡ funciones back
+    function comentario_aprobar(){
+        if(isset($_GET['aprobar'])){
+            $com_id = limpiar_string(trim($_GET['aprobar']));
+            $query = query("UPDATE comentarios SET com_status = 'aprobado' WHERE com_id = {$com_id}");
+            confirmar($query);
+            set_mensaje(display_success_msj("Comentario aprobado exitosamente"));
+            redirect('index.php?comentarios');
+        }
+    }
     function comentarios_mostrar_admin(){
         $query = query("SELECT a.com_id, c.pub_id, c.pub_titulo, CONCAT(b.user_nombres, ' ', b.user_apellidos) AS usuario, a.com_mensaje, a.com_fecha, a.com_status, c.pub_user_id FROM comentarios a INNER JOIN usuarios b ON a.com_user_id = b.user_id INNER JOIN publicaciones c ON a.com_pub_id = c.pub_id WHERE a.com_status = 'pendiente' AND c.pub_user_id = {$_SESSION['user_id']}");
         confirmar($query);
@@ -416,10 +448,10 @@ DELIMITADOR;
                     <td>{$fila['com_fecha']}</td>
                     <td>{$fila['com_status']}</td>
                     <td>
-                        <a href="#" class="btn btn-small btn-success">aprobar</a>
+                        <a href="index.php?comentarios&aprobar={$fila['com_id']}" class="btn btn-small btn-success">aprobar</a>
                     </td>
                     <td>
-                        <a href="#" class="btn btn-small btn-danger">borrar</a>
+                        <a href="javascript:void(0)" class="btn btn-small btn-danger delete_link" rel="{$fila['com_id']}" table="comentarios">borrar</a>
                     </td>
                 </tr>
 DELIMITADOR;

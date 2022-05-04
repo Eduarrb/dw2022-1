@@ -70,3 +70,12 @@ SELECT
         INNER JOIN usuarios b ON a.com_user_id = b.user_id
         INNER JOIN publicaciones c ON a.com_pub_id = c.pub_id
     WHERE a.com_status = 'pendiente' AND c.pub_user_id = 6
+
+
+SELECT 
+    CONCAT(b.user_nombres, ' ', b.user_apellidos) AS usuario,
+    a.com_mensaje,
+    b.user_img
+    FROM comentarios a 
+        INNER JOIN usuarios b ON a.com_user_id = b.user_id
+    WHERE a.com_status = 'aprobado' AND com_pub_id = 
