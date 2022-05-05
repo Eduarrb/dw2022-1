@@ -113,6 +113,32 @@ DELIMITADOR;
     }
 
     // ⚡⚡ funciones front
+    function publicaciones_cat_mostrar(){
+        if(isset($_GET['cat'])){
+            $pub_cat_id = limpiar_string(trim($_GET['cat']));
+            $query = query("SELECT pub_id, pub_img, pub_fecha, pub_titulo, pub_resumen FROM publicaciones WHERE pub_status = 'publicado' AND pub_cat_id = {$pub_cat_id} ORDER BY pub_id DESC");
+            confirmar($query);
+            if(contar_filas($query) == 0){
+                echo '<div class="col-md-12 text-center fs-1">No se cuenta con ninguna publicación en la categoría 😭😭</div>';
+            }
+            while($fila = fetch_array($query)){
+                $publicaciones = <<<DELIMITADOR
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+                            <a href="post.php?blog={$fila['pub_id']}"><img class="card-img-top" src="img/{$fila['pub_img']}" alt="{$fila['pub_titulo']}" /></a>
+                            <div class="card-body">
+                                <div class="small text-muted">{$fila['pub_fecha']}</div>
+                                <h2 class="card-title h4">{$fila['pub_titulo']}</h2>
+                                <p class="card-text">{$fila['pub_resumen']}</p>
+                                <a class="btn btn-primary" href="post.php?blog={$fila['pub_id']}">Leer más →</a>
+                            </div>
+                        </div>
+                    </div>
+DELIMITADOR;
+                echo $publicaciones;
+            }
+        }
+    }
     function comentarios_mostrar($pub_id){
         $query = query("SELECT CONCAT(b.user_nombres, ' ', b.user_apellidos) AS usuario, a.com_mensaje, b.user_img
         FROM comentarios a INNER JOIN usuarios b ON a.com_user_id = b.user_id WHERE a.com_status = 'aprobado' AND a.com_pub_id = {$pub_id}");
@@ -403,20 +429,13 @@ DELIMITADOR;
             }
         }
     }
-
-
     function show_categorias(){
-        // global $conexion;
-        //$query = "SELECT * FROM categorias";
-        // $query_res = mysqli_query($conexion, $query);
         $query = query("SELECT * FROM categorias");
         confirmar($query);
-        // print_r($query);
         while($fila = fetch_array($query)){
-            // print_r($fila);
             $categoria = <<<DELIMITADOR
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="categorias.php?cat={$fila['cat_id']}">
                         {$fila['cat_nombre']}
                     </a>
                 </li>
@@ -424,6 +443,7 @@ DELIMITADOR;
             echo $categoria;
         }
     }
+    
     // ⚡⚡ funciones back
     function comentario_aprobar(){
         if(isset($_GET['aprobar'])){
