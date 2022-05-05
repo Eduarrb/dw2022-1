@@ -1,4 +1,8 @@
 <?php
+    $_SESSION['db_pass'] = '';
+    $_SESSION['db_host'] = 'localhost';
+    $_SESSION['db_user'] = 'root';
+    $_SESSION['db_name'] = 'cms_2022_1';
     // ⚡⚡ functiones base - helpers
     function query($sql){
         global $conexion;

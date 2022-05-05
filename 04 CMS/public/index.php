@@ -24,9 +24,9 @@
                         publicaciones_mostrar_ultimo();
                     ?>
                     <!-- Nested row for non-featured blog posts-->
-                    <div class="row">
+                    <div class="row publicaciones">
                         <?php
-                            publicaciones_mostrar_resto($ultimo_id);
+                            // publicaciones_mostrar_resto($ultimo_id);
                         ?>
                     </div>
                     <!-- Pagination-->
