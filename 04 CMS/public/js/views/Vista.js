@@ -10,7 +10,6 @@ export default class Vista{
                 </div>
             </div>
         `;
-        // console.log(this._elementoPadre);
         this._clear();
         this._elementoPadre.innerHTML = plantilla;
     }
