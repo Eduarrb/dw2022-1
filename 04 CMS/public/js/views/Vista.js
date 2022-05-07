@@ -1,4 +1,13 @@
 export default class Vista{
+    _data;
+    render(data){
+        if(!data || (Array.isArray(data) && data.length === 0)) return this.renderError();
+        this._data = data;
+        const plantilla = this._generarPlantilla();
+        this._clear();
+        this._elementoPadre.innerHTML = plantilla;
+    }
+
     _clear(){
         this._elementoPadre.innerHTML = '';
     }
@@ -12,5 +21,14 @@ export default class Vista{
         `;
         this._clear();
         this._elementoPadre.innerHTML = plantilla;
+    }
+    renderError(mensaje = this._mensajeError){
+        const platilla = `
+            <div>
+                ${mensaje} 💥💥
+            </div>
+        `;
+        this._clear();
+        this._elementoPadre.innerHTML = platilla;
     }
 }

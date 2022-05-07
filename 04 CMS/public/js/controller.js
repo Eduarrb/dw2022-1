@@ -5,7 +5,7 @@ const controllerResultadopublicaciones = async function(getFile){
     try {
         publicacionesVista.renderLoad();
         await model.cargarResultadosPublicaciones(getFile);
-        console.log(model.estado);
+        publicacionesVista.render(model.estado.publicaciones.resultados);
     } catch (error) {
         throw(error)
     }
