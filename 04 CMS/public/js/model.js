@@ -3,6 +3,9 @@ import { obtenerJson } from "./helpers.js";
 export const estado = {
     publicaciones: {
         resultados: [],
+        // 1, 2, 3 , 4
+        pagina: 1,
+        resultadosPorPagina: 2
     },
     fechaOptions: {
         weekday: 'short',
@@ -28,4 +31,11 @@ export const cargarResultadosPublicaciones = async function(url){
     } catch (error) {
         throw(error);
     }
+}
+
+export const obtenerResultadosPaginacion = function(pagina = estado.publicaciones.pagina){
+    estado.publicaciones.pagina = pagina;
+    const inicio = (pagina - 1) * estado.publicaciones.resultadosPorPagina; // 2
+    const final = pagina * estado.publicaciones.resultadosPorPagina; // 2
+    return estado.publicaciones.resultados.slice(inicio, final);
 }
