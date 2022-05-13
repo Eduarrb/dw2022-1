@@ -449,6 +449,19 @@ DELIMITADOR;
     }
     
     // ⚡⚡ funciones back
+    function show_canti_any_table($tabla){
+        $query = query("SELECT * FROM {$tabla}");
+        confirmar($query);
+        echo contar_filas($query);
+    }
+
+    function show_canti_total_vistas(){
+        $query = query("SELECT SUM(pub_vistas) AS vistas FROM publicaciones");
+        confirmar($query);
+        $fila = fetch_array($query);
+        echo $fila['vistas'];
+    }
+
     function comentario_aprobar(){
         if(isset($_GET['aprobar'])){
             $com_id = limpiar_string(trim($_GET['aprobar']));

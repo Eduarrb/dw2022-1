@@ -24,6 +24,12 @@
                     /*
                         depenediendo del menu (METODO GET), en esta seccion debe cargar el contenido
                     */
+
+                    // echo $_SERVER['REQUEST_URI'];
+
+                    if($_SERVER['REQUEST_URI'] == '/dw2022-1/04%20CMS/public/admin/' || $_SERVER['REQUEST_URI'] == '/dw2022-1/04%20CMS/public/admin/index.php'){
+                        include(VIEW_BACK . DS . "dashboard.php");
+                    }
                     if(isset($_GET['categorias'])){
                         // echo 'estas en categorias';
                         include(VIEW_BACK . DS . "categorias.php");

@@ -18,6 +18,8 @@ const controllerResultadopublicaciones = async function(getFile){
 const controllerPaginacion = function(goToPage){
     // console.log('vamos a ir a la pagina', goToPage);
     // controllerPaginacion()
+    publicacionesVista.render(model.obtenerResultadosPaginacion(goToPage));
+    paginacionVista.render(model.estado.publicaciones);
 }
 
 controllerResultadopublicaciones('backFetch/publicaciones_get.php');
