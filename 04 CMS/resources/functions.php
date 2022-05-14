@@ -84,32 +84,80 @@ DELIMITADOR;
         return false;
     }
 
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\SMTP;
-    use PHPMailer\PHPMailer\Exception;
+    // use PHPMailer\PHPMailer\PHPMailer;
+    // use PHPMailer\PHPMailer\SMTP;
+    // use PHPMailer\PHPMailer\Exception;
 
     //Load Composer's autoloader
     // require 'vendor/autoload.php';
 
-    function send_email($email, $asunto, $mensaje){
-        $mail = new PHPMailer();
-        $mail->isSMTP();
-        $mail->Host = 'smtp.mailtrap.io';
-        $mail->SMTPAuth = true;
-        $mail->Username = '2ccf0a987cd073';
-        $mail->Password = '79f9188e5323b3';
-        $mail->Port = 465;
-        $mail->SMTPSecure = 'tls';
-        $mail->isHTML(true);
-        $mail->CharSet = 'UTF-8';
+    // function send_email($email, $asunto, $mensaje){
+    //     $mail = new PHPMailer();
+    //     $mail->isSMTP();
+    //     $mail->Host = 'smtp.mailtrap.io';
+    //     $mail->SMTPAuth = true;
+    //     $mail->Username = '2ccf0a987cd073';
+    //     $mail->Password = '79f9188e5323b3';
+    //     $mail->Port = 465;
+    //     $mail->SMTPSecure = 'tls';
+    //     $mail->isHTML(true);
+    //     $mail->CharSet = 'UTF-8';
 
-        $mail->setFrom('noreply@tudominio.com', 'Mailer');
-        $mail->addAddress($email);
-        $mail->Subject = $asunto;
-        $mail->Body = $mensaje;
-        if($mail->send()){
-            $emailSent = true;
-        }
+    //     $mail->setFrom('noreply@tudominio.com', 'Mailer');
+    //     $mail->addAddress($email);
+    //     $mail->Subject = $asunto;
+    //     $mail->Body = $mensaje;
+    //     if($mail->send()){
+    //         $emailSent = true;
+    //     }
+    // }
+
+    function send_email($email, $asunto, $msj, $name = ''){
+        $email = $email;
+        $name = $name;
+        $body = "
+            <h3>{$asunto}</h3>
+            <br>
+            <p>{$msj}</p>
+            <br>
+        ";
+        $headers = array(
+            'Authorization: Bearer <aqui tu api key>',
+            'Content-Type: application/json'
+        );
+        $data = array(
+            "personalizations" => array(
+                array(
+                    "to" => array(
+                        array(
+                            "email" => $email,
+                            "name" => $name
+                        )
+                    )
+                )
+            ),
+            "from" => array(
+                "email" => "noreply@cms20221.club"
+            ),
+            "subject" => $asunto,
+            "content" => array(
+                array(
+                    "type" => "text/html",
+                    "value" => $body
+                )
+            )
+            
+        );
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://api.sendgrid.com/v3/mail/send");
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        echo $response;
     }
     
     function token_generator(){
