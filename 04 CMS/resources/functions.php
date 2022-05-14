@@ -1,4 +1,8 @@
 <?php
+    $_SESSION['db_pass'] = '';
+    $_SESSION['db_host'] = 'localhost';
+    $_SESSION['db_user'] = 'root';
+    $_SESSION['db_name'] = 'cms_2022_1';
     // ⚡⚡ functiones base - helpers
     function query($sql){
         global $conexion;
@@ -80,32 +84,80 @@ DELIMITADOR;
         return false;
     }
 
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\SMTP;
-    use PHPMailer\PHPMailer\Exception;
+    // use PHPMailer\PHPMailer\PHPMailer;
+    // use PHPMailer\PHPMailer\SMTP;
+    // use PHPMailer\PHPMailer\Exception;
 
     //Load Composer's autoloader
     // require 'vendor/autoload.php';
 
-    function send_email($email, $asunto, $mensaje){
-        $mail = new PHPMailer();
-        $mail->isSMTP();
-        $mail->Host = 'smtp.mailtrap.io';
-        $mail->SMTPAuth = true;
-        $mail->Username = '2ccf0a987cd073';
-        $mail->Password = '79f9188e5323b3';
-        $mail->Port = 465;
-        $mail->SMTPSecure = 'tls';
-        $mail->isHTML(true);
-        $mail->CharSet = 'UTF-8';
+    // function send_email($email, $asunto, $mensaje){
+    //     $mail = new PHPMailer();
+    //     $mail->isSMTP();
+    //     $mail->Host = 'smtp.mailtrap.io';
+    //     $mail->SMTPAuth = true;
+    //     $mail->Username = '2ccf0a987cd073';
+    //     $mail->Password = '79f9188e5323b3';
+    //     $mail->Port = 465;
+    //     $mail->SMTPSecure = 'tls';
+    //     $mail->isHTML(true);
+    //     $mail->CharSet = 'UTF-8';
 
-        $mail->setFrom('noreply@tudominio.com', 'Mailer');
-        $mail->addAddress($email);
-        $mail->Subject = $asunto;
-        $mail->Body = $mensaje;
-        if($mail->send()){
-            $emailSent = true;
-        }
+    //     $mail->setFrom('noreply@tudominio.com', 'Mailer');
+    //     $mail->addAddress($email);
+    //     $mail->Subject = $asunto;
+    //     $mail->Body = $mensaje;
+    //     if($mail->send()){
+    //         $emailSent = true;
+    //     }
+    // }
+
+    function send_email($email, $asunto, $msj, $name = ''){
+        $email = $email;
+        $name = $name;
+        $body = "
+            <h3>{$asunto}</h3>
+            <br>
+            <p>{$msj}</p>
+            <br>
+        ";
+        $headers = array(
+            'Authorization: Bearer <aqui tu api key>',
+            'Content-Type: application/json'
+        );
+        $data = array(
+            "personalizations" => array(
+                array(
+                    "to" => array(
+                        array(
+                            "email" => $email,
+                            "name" => $name
+                        )
+                    )
+                )
+            ),
+            "from" => array(
+                "email" => "noreply@cms20221.club"
+            ),
+            "subject" => $asunto,
+            "content" => array(
+                array(
+                    "type" => "text/html",
+                    "value" => $body
+                )
+            )
+            
+        );
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, "https://api.sendgrid.com/v3/mail/send");
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        echo $response;
     }
     
     function token_generator(){
@@ -113,6 +165,55 @@ DELIMITADOR;
     }
 
     // ⚡⚡ funciones front
+    function publicaciones_cat_mostrar(){
+        if(isset($_GET['cat'])){
+            $pub_cat_id = limpiar_string(trim($_GET['cat']));
+            $query = query("SELECT pub_id, pub_img, pub_fecha, pub_titulo, pub_resumen FROM publicaciones WHERE pub_status = 'publicado' AND pub_cat_id = {$pub_cat_id} ORDER BY pub_id DESC");
+            confirmar($query);
+            if(contar_filas($query) == 0){
+                echo '<div class="col-md-12 text-center fs-1">No se cuenta con ninguna publicación en la categoría 😭😭</div>';
+            }
+            while($fila = fetch_array($query)){
+                $publicaciones = <<<DELIMITADOR
+                    <div class="col-lg-6">
+                        <div class="card mb-4">
+                            <a href="post.php?blog={$fila['pub_id']}"><img class="card-img-top" src="img/{$fila['pub_img']}" alt="{$fila['pub_titulo']}" /></a>
+                            <div class="card-body">
+                                <div class="small text-muted">{$fila['pub_fecha']}</div>
+                                <h2 class="card-title h4">{$fila['pub_titulo']}</h2>
+                                <p class="card-text">{$fila['pub_resumen']}</p>
+                                <a class="btn btn-primary" href="post.php?blog={$fila['pub_id']}">Leer más →</a>
+                            </div>
+                        </div>
+                    </div>
+DELIMITADOR;
+                echo $publicaciones;
+            }
+        }
+    }
+    function comentarios_mostrar($pub_id){
+        $query = query("SELECT CONCAT(b.user_nombres, ' ', b.user_apellidos) AS usuario, a.com_mensaje, b.user_img
+        FROM comentarios a INNER JOIN usuarios b ON a.com_user_id = b.user_id WHERE a.com_status = 'aprobado' AND a.com_pub_id = {$pub_id}");
+        confirmar($query);
+        while($fila = fetch_array($query)){
+            $user_img = $fila['user_img'];
+            if(empty($user_img)){
+                $user_img = 'https://dummyimage.com/50x50/ced4da/6c757d.jpg';
+            } else {
+                $user_img = "img/{$user_img}";
+            }
+            $comentario = <<<DELIMITADOR
+                <div class="d-flex mb-4">
+                    <div class="flex-shrink-0"><img class="rounded-circle" src="{$user_img}" alt="..." /></div>
+                    <div class="ms-3">
+                        <div class="fw-bold">{$fila['usuario']}</div>
+                        {$fila['com_mensaje']}
+                    </div>
+                </div>
+DELIMITADOR;
+            echo $comentario;
+        }
+    }
     function publicacion_individual_mostrar(){
         if(isset($_GET['blog'])){
             $id = limpiar_string(trim($_GET['blog']));
@@ -380,20 +481,13 @@ DELIMITADOR;
             }
         }
     }
-
-
     function show_categorias(){
-        // global $conexion;
-        //$query = "SELECT * FROM categorias";
-        // $query_res = mysqli_query($conexion, $query);
         $query = query("SELECT * FROM categorias");
         confirmar($query);
-        // print_r($query);
         while($fila = fetch_array($query)){
-            // print_r($fila);
             $categoria = <<<DELIMITADOR
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" href="categorias.php?cat={$fila['cat_id']}">
                         {$fila['cat_nombre']}
                     </a>
                 </li>
@@ -401,7 +495,30 @@ DELIMITADOR;
             echo $categoria;
         }
     }
+    
     // ⚡⚡ funciones back
+    function show_canti_any_table($tabla){
+        $query = query("SELECT * FROM {$tabla}");
+        confirmar($query);
+        echo contar_filas($query);
+    }
+
+    function show_canti_total_vistas(){
+        $query = query("SELECT SUM(pub_vistas) AS vistas FROM publicaciones");
+        confirmar($query);
+        $fila = fetch_array($query);
+        echo $fila['vistas'];
+    }
+
+    function comentario_aprobar(){
+        if(isset($_GET['aprobar'])){
+            $com_id = limpiar_string(trim($_GET['aprobar']));
+            $query = query("UPDATE comentarios SET com_status = 'aprobado' WHERE com_id = {$com_id}");
+            confirmar($query);
+            set_mensaje(display_success_msj("Comentario aprobado exitosamente"));
+            redirect('index.php?comentarios');
+        }
+    }
     function comentarios_mostrar_admin(){
         $query = query("SELECT a.com_id, c.pub_id, c.pub_titulo, CONCAT(b.user_nombres, ' ', b.user_apellidos) AS usuario, a.com_mensaje, a.com_fecha, a.com_status, c.pub_user_id FROM comentarios a INNER JOIN usuarios b ON a.com_user_id = b.user_id INNER JOIN publicaciones c ON a.com_pub_id = c.pub_id WHERE a.com_status = 'pendiente' AND c.pub_user_id = {$_SESSION['user_id']}");
         confirmar($query);
@@ -416,10 +533,10 @@ DELIMITADOR;
                     <td>{$fila['com_fecha']}</td>
                     <td>{$fila['com_status']}</td>
                     <td>
-                        <a href="#" class="btn btn-small btn-success">aprobar</a>
+                        <a href="index.php?comentarios&aprobar={$fila['com_id']}" class="btn btn-small btn-success">aprobar</a>
                     </td>
                     <td>
-                        <a href="#" class="btn btn-small btn-danger">borrar</a>
+                        <a href="javascript:void(0)" class="btn btn-small btn-danger delete_link" rel="{$fila['com_id']}" table="comentarios">borrar</a>
                     </td>
                 </tr>
 DELIMITADOR;

@@ -19,23 +19,13 @@
                 </thead>
                 <tbody>
                     <?php comentarios_mostrar_admin(); ?>
-                    <!-- <tr>
-                        <td>
-                            <a href="../post.php?blog=10" target="_blank">Curso de PHP</a>
-                        </td>
-                        <td>Ana Jimenez</td>
-                        <td>este es el mensaje</td>
-                        <td>2022-04-10 10:00:00</td>
-                        <td>pendiente</td>
-                        <td>
-                            <a href="#" class="btn btn-small btn-success">aprobar</a>
-                        </td>
-                        <td>
-                            <a href="#" class="btn btn-small btn-danger">borrar</a>
-                        </td>
-                    </tr> -->
+                    
                 </tbody>
             </table>
+            <?php 
+                comentario_aprobar();
+                elemento_delete('comentarios', 'com_id');
+            ?>
         </div>
     </div>
 </div>
