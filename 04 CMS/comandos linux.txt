@@ -1,0 +1,26 @@
+sudo apt-get update
+
+sudo apt-get upgrade
+
+-------------------------------
+sudo apt-get install apache2
+sudo ufw app info "Apache Full"
+sudo ufw allow in "Apache Full"
+
+--------------------------------
+sudo apt-get install mysql-server
+
+sudo mysql_secure_installation ****
+
+---------------------------------------
+sudo apt-get install php libapache2-mod-php php-mysql
+
+UNINSTALL COMPONENT "file://component_validate_password"
+
+sudo apt-get install phpmyadmin
+
+INSTALL COMPONENT "file://component_validate_password";
+
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '<tu contraseña generada>';
+
+FLUSH PRIVILEGES;
