@@ -24,3 +24,28 @@ INSTALL COMPONENT "file://component_validate_password";
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '<tu contraseña generada>';
 
 FLUSH PRIVILEGES;
+
+
+--- virtualhost
+
+<VirtualHost *:80>
+        ServerName nombreDominio
+        ServerAlias nombreDominio
+        DocumentRoot /var/www/cms/public
+
+        DirectoryIndex index.php
+
+        <Directory />
+                Options FollowSymLinks
+                AllowOverride None
+        </Directory>
+        <Directory /var/www/cms/public>
+                Options Indexes FollowSymLinks MultiViews
+                AllowOverride None
+                Order allow,deny
+                allow from all
+        </Directory>
+
+        ErrorLog ${APACHE_LOG_DIR}/error.log
+        CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>

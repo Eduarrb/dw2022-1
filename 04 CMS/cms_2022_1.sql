@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-04-2022 a las 03:26:30
+-- Tiempo de generación: 15-05-2022 a las 03:22:19
 -- Versión del servidor: 10.4.20-MariaDB
 -- Versión de PHP: 8.0.9
 
@@ -49,6 +49,22 @@ INSERT INTO `categorias` (`cat_id`, `cat_nombre`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `comentarios`
+--
+
+DROP TABLE IF EXISTS `comentarios`;
+CREATE TABLE `comentarios` (
+  `com_id` int(10) UNSIGNED NOT NULL,
+  `com_user_id` int(11) NOT NULL,
+  `com_pub_id` int(11) NOT NULL,
+  `com_mensaje` text NOT NULL,
+  `com_fecha` datetime DEFAULT NULL,
+  `com_status` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `publicaciones`
 --
 
@@ -71,8 +87,9 @@ CREATE TABLE `publicaciones` (
 --
 
 INSERT INTO `publicaciones` (`pub_id`, `pub_cat_id`, `pub_user_id`, `pub_titulo`, `pub_resumen`, `pub_contenido`, `pub_fecha`, `pub_img`, `pub_vistas`, `pub_status`) VALUES
-(9, 15, 5, 'Curso de Javascript', 'resumen', 'contenido', '2022-01-01', '02.png', 1, 'publicado'),
-(10, 1, 6, 'Curso de PHP', 'resumen', 'contenido', '2022-04-12', '01.png', 2, 'publicado');
+(9, 15, 5, 'Curso de Javascript', 'resumen', 'contenido', '2022-01-01', '02.png', 3, 'publicado'),
+(10, 1, 6, 'Curso de PHP', 'resumen', 'contenido', '2022-04-12', '01.png', 2, 'publicado'),
+(12, 2, 6, 'Curso HTML', 'Resumen de html', 'Resumen de html', '2022-04-21', '14e0e45b62801c1c1fcb9bbf15918f00.png', 3, 'publicado');
 
 -- --------------------------------------------------------
 
@@ -116,6 +133,12 @@ ALTER TABLE `categorias`
   ADD PRIMARY KEY (`cat_id`);
 
 --
+-- Indices de la tabla `comentarios`
+--
+ALTER TABLE `comentarios`
+  ADD PRIMARY KEY (`com_id`);
+
+--
 -- Indices de la tabla `publicaciones`
 --
 ALTER TABLE `publicaciones`
@@ -138,10 +161,16 @@ ALTER TABLE `categorias`
   MODIFY `cat_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
+-- AUTO_INCREMENT de la tabla `comentarios`
+--
+ALTER TABLE `comentarios`
+  MODIFY `com_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `publicaciones`
 --
 ALTER TABLE `publicaciones`
-  MODIFY `pub_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `pub_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

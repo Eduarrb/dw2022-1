@@ -1,0 +1,54 @@
+⚡⚡ en el servidor 
+ssh root@<la ip de tu droplet>
+
+cd ~/.ssh
+
+ssh-keygen -t rsa -b 4096 -C "root@<la ip de tu droplet>"
+
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+
+cat ~/.ssh/id_rsa -> esto abrira nuestra llave privada de conexion generada para el acceso por ssh en gitgub, no se olviden copiar todo desde 
+-----BEGIN OPENSSH PRIVATE KEY-----
+hasta los ultimos guiones de la linea
+-----END OPENSSH PRIVATE KEY-----
+
+
+en su repositorio iniciar antes
+git config --global user.email SU-CORREO-ELECTRONICO
+
+INICIAR UN REPOSITORIO EN GITHUB
+
+archivo deploy
+-----------------------------------------
+
+name: Deploy
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+
+    - name: Copy repository contents via scp
+      uses: appleboy/scp-action@master
+      env:
+        HOST: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PORT: ${{ secrets.PORT }}
+        KEY: ${{ secrets.SSHKEY }}
+      with:
+        source: "."
+        target: "/var/www/mywebsite"
+
+    - name: Executing remote command
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PORT: ${{ secrets.PORT }}
+        KEY: ${{ secrets.SSHKEY }}
+        script: ls
